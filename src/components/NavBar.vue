@@ -1,33 +1,43 @@
 <template>
   <div>
     <v-app-bar
-      color="#6A76AB"
+      color="primary"
       dark
       src="https://picsum.photos/1920/1080?random"
       fade-img-on-scroll
-      prominent
-      height="150%"
     >
+      <!-- prominent
+      height="150%" -->
+
       <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
-          gradient="to top right, rgba(100,115,201,.7), rgba(25,32,72,.7)"
-        ></v-img>
+          gradient="to top right, rgba(100,115,201,.7), rgba(70, 150, 84, 0.7)"
+        >
+        </v-img>
       </template>
 
-      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-      <v-spacer></v-spacer>
       <v-app-bar-title>
-        <h2>Chat Toxico</h2>
+        <div class="d-flex align-center">
+          <v-img
+            alt="Vuetify Logo"
+            class="shrink mr-2"
+            contain
+            :src="require('../assets/logo_proy.png')"
+            transition="scale-transition"
+            width="40"
+          />
+          <!-- <h2> -->
+          Chat Toxico
+          <!-- </h2> -->
+        </div>
       </v-app-bar-title>
       <v-spacer></v-spacer>
+      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" absolute temporary>
+    <v-navigation-drawer right v-model="drawer" dark absolute temporary>
       <v-list nav dense>
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text text--accent-4"
-        >
+        <v-list-item-group v-model="group">
           <v-list-item
             v-for="(routes, index) in routing"
             :key="index"
@@ -60,22 +70,22 @@ export default {
       {
         to: "/",
         text: "Home",
-        icon: "mdi-home",
+        icon: "mdi-home-outline",
       },
       {
         to: "/write_chat",
         text: "Write Chat",
-        icon: "mdi-home",
+        icon: "mdi-typewriter",
       },
       {
         to: "/upload_chat",
         text: "Upload Chat",
-        icon: "mdi-home",
+        icon: "mdi-file-upload-outline",
       },
       {
         to: "/about",
         text: "About",
-        icon: "mdi-home",
+        icon: "mdi-help-circle-outline",
       },
     ],
   }),
