@@ -3,7 +3,9 @@
     <NavBar></NavBar>
     <v-main>
       <div id="app">
+        <br />
         <router-view />
+        <br />
       </div>
     </v-main>
   </v-app>
