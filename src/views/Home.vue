@@ -1,14 +1,22 @@
 <template>
   <div>
-    <h1>Home</h1>
+    <HomeRedirects></HomeRedirects>
+    <br />
+    <HomeInfo></HomeInfo>
+    <br />
+    <HomeInfo></HomeInfo>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import HomeRedirects from "@/components/HomeRedirects.vue";
+import HomeInfo from "@/components/HomeInfo.vue";
 
 export default {
   name: "Home",
-  components: {},
+  components: {
+    HomeRedirects,
+    HomeInfo,
+  },
 };
 </script>
