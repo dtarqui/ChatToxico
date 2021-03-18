@@ -19,14 +19,16 @@
 
       <v-app-bar-title>
         <div class="d-flex align-center">
-          <v-img
-            alt="Vuetify Logo"
-            class="shrink mr-2"
-            contain
-            :src="require('../assets/logo_proy.png')"
-            transition="scale-transition"
-            width="40"
-          />
+          <router-link to="/">
+            <v-img
+              alt="Vuetify Logo"
+              class="shrink mr-2"
+              contain
+              :src="require('../assets/logo_proy.png')"
+              transition="scale-transition"
+              width="40"
+            />
+          </router-link>
           <!-- <h2> -->
           Chat Toxico
           <!-- </h2> -->

@@ -7,9 +7,15 @@
         height="20%"
       >
         <v-card-text>
-          <v-btn v-for="(icon, i) in icons" :key="i" class="mx-4" icon>
+          <v-btn
+            v-for="(route, i) in routing"
+            :key="i"
+            class="mx-4"
+            icon
+            :to="route.to"
+          >
             <v-icon size="24px">
-              {{ icon }}
+              {{ route.icon }}
             </v-icon>
           </v-btn>
         </v-card-text>
@@ -27,11 +33,23 @@
 <script>
 export default {
   data: () => ({
-    icons: [
-      "mdi-home-outline",
-      "mdi-typewriter",
-      "mdi-file-upload-outline",
-      "mdi-help-circle-outline",
+    routing: [
+      {
+        to: "/",
+        icon: "mdi-home-outline",
+      },
+      {
+        to: "/write_chat",
+        icon: "mdi-typewriter",
+      },
+      {
+        to: "/upload_chat",
+        icon: "mdi-file-upload-outline",
+      },
+      {
+        to: "/about",
+        icon: "mdi-help-circle-outline",
+      },
     ],
     items: ["default", "absolute", "fixed"],
     padless: true,
