@@ -29,7 +29,7 @@
               width="40"
             />
           </router-link>
-          Chat Toxico
+          F
         </div>
       </v-app-bar-title>
       <v-spacer></v-spacer>
