@@ -29,9 +29,7 @@
               width="40"
             />
           </router-link>
-          <!-- <h2> -->
           Chat Toxico
-          <!-- </h2> -->
         </div>
       </v-app-bar-title>
       <v-spacer></v-spacer>
@@ -53,13 +51,6 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-    <!-- <v-sheet
-      id="scrolling-techniques-3"
-      class="overflow-y-auto"
-      max-height="600"
-    >
-      <v-container style="height: 1000px"></v-container>
-    </v-sheet> -->
   </div>
 </template>
 
@@ -71,22 +62,22 @@ export default {
     routing: [
       {
         to: "/",
-        text: "Home",
+        text: "Inicio",
         icon: "mdi-home-outline",
       },
       {
         to: "/write_chat",
-        text: "Write Chat",
+        text: "Escribir Chat",
         icon: "mdi-typewriter",
       },
       {
         to: "/upload_chat",
-        text: "Upload Chat",
+        text: "Subir Chat",
         icon: "mdi-file-upload-outline",
       },
       {
         to: "/about",
-        text: "About",
+        text: "Ayuda",
         icon: "mdi-help-circle-outline",
       },
     ],

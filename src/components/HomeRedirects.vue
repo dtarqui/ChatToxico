@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" width="95%" >
+  <v-card class="mx-auto" width="95%">
     <v-card-subtitle>
       <v-row align="center" justify="center">
         <v-col cols="12" sm="6">
