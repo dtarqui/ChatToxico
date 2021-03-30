@@ -2,7 +2,12 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <info-upload-chat></info-upload-chat>
+        <InfoChats>
+          <template v-slot:title> Escribe el chat manualmente </template>
+          Puedes escribir tu chat aqui. Separa los mensajes de las dos personas
+          que quieres analizar. Escribe chats cortos, menores a 20 mensajes por
+          persona.
+        </InfoChats>
       </v-col>
       <v-col cols="12">
         <v-card class="mx-auto">
@@ -115,9 +120,9 @@
 </template>
 
 <script>
-import InfoUploadChat from "../components/InfoUploadChat.vue";
+import InfoChats from "../components/InfoChats.vue";
 export default {
-  components: { InfoUploadChat },
+  components: { InfoChats },
   data: () => ({
     chat1: [""],
     chat2: [""],

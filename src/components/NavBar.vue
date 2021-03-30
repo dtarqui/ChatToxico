@@ -20,16 +20,17 @@
       <v-app-bar-title>
         <div class="d-flex align-center">
           <router-link to="/" tag="div">
-            <v-img
-              alt="Vuetify Logo"
-              class="shrink mr-2"
-              contain
-              :src="require('../assets/logo_proy.png')"
-              transition="scale-transition"
-              width="40"
-            />
+            <slot>
+              <v-img
+                class="shrink mr-2"
+                contain
+                :src="require('../assets/logo_proy.png')"
+                transition="scale-transition"
+                width="40"
+              />
+            </slot>
           </router-link>
-          Chat Toxico
+          <h3>Chat Toxico</h3>
         </div>
       </v-app-bar-title>
       <v-btn icon>
@@ -106,3 +107,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+h3 {
+  background: -webkit-linear-gradient(rgb(255, 255, 255), rgb(5, 121, 26));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+</style>
