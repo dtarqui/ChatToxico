@@ -23,13 +23,14 @@
           <v-card-text>
             <v-row>
               <v-col cols="12" sm="6">
-                <v-row align="center" justify="center" no-gutters>
+                <v-row align="center" justify="space-between">
                   <v-col v-for="(text, i) in chat1" :key="i" cols="12">
                     <v-row align="center" justify="center" no-gutters>
                       <v-col cols="12" sm="2">
                         <v-btn
                           class="mx-2"
                           icon
+                          small
                           color="secondary"
                           @click="deleteText(text, i, 'chat1')"
                         >
