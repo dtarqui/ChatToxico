@@ -1,10 +1,10 @@
 <template>
-  <v-footer v-bind="localAttrs" :padless="padless">
+  <v-footer default padless>
     <v-card flat tile width="100%" class="text-center">
-      <!-- src="https://picsum.photos/1920/1080?random" -->
       <v-img
         gradient="to top right, rgba(70, 150, 84, 0.7), rgba(100,115,201,.7)"
-        height="20%"
+        height="120px"
+        src="https://picsum.photos/1920/1080?random"
       >
         <v-card-text>
           <v-btn
@@ -13,6 +13,7 @@
             class="mx-4"
             icon
             :to="route.to"
+            dark
           >
             <v-icon size="24px">
               {{ route.icon }}
@@ -51,14 +52,11 @@ export default {
         icon: "mdi-help-circle-outline",
       },
     ],
-    items: ["default", "absolute", "fixed"],
-    padless: true,
     variant: "default",
   }),
   computed: {
     localAttrs() {
       const attrs = {};
-
       if (this.variant === "default") {
         attrs.absolute = false;
         attrs.fixed = false;

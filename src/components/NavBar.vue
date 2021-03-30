@@ -19,7 +19,7 @@
 
       <v-app-bar-title>
         <div class="d-flex align-center">
-          <router-link to="/">
+          <router-link to="/" tag="div">
             <v-img
               alt="Vuetify Logo"
               class="shrink mr-2"
@@ -29,14 +29,30 @@
               width="40"
             />
           </router-link>
-          F
+          Chat Toxico
         </div>
       </v-app-bar-title>
+      <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
       <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
     </v-app-bar>
     <v-navigation-drawer right v-model="drawer" dark absolute temporary>
-      <v-list nav dense>
+      <v-card>
+        <v-card-text> log in </v-card-text>
+      </v-card>
+      <v-divider></v-divider>
+      <v-list nav dense rounded>
         <v-list-item-group v-model="group">
           <v-list-item
             v-for="(routes, index) in routing"
@@ -50,6 +66,9 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
+      <v-card>
+        <v-card-text> log in </v-card-text>
+      </v-card>
     </v-navigation-drawer>
   </div>
 </template>
@@ -59,7 +78,10 @@ export default {
   data: () => ({
     drawer: false,
     group: null,
-    routing: [
+    routing: [],
+  }),
+  mounted() {
+    this.routing = [
       {
         to: "/",
         text: "Inicio",
@@ -77,10 +99,10 @@ export default {
       },
       {
         to: "/about",
-        text: "Ayuda",
+        text: "FAQ",
         icon: "mdi-help-circle-outline",
       },
-    ],
-  }),
+    ];
+  },
 };
 </script>
