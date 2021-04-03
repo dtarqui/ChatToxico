@@ -2,13 +2,24 @@
   <v-app>
     <NavBar></NavBar>
     <v-main>
-      <div id="app">
-        <br />
-        <transition name="slide" mode="out-in">
-          <router-view></router-view>
-        </transition>
-        <br />
-      </div>
+      <!-- <v-parallax
+        src="./assets/background.jpg"
+        direction="down"
+        :parallax="true"
+        height="2000px"
+      > -->
+        <v-row>
+          <v-col cols="12">
+            <div id="app">
+              <br />
+              <transition name="slide" mode="out-in">
+                <router-view></router-view>
+              </transition>
+              <br />
+            </div>
+          </v-col>
+        </v-row>
+      <!-- </v-parallax> -->
     </v-main>
     <Footer></Footer>
   </v-app>

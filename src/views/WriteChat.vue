@@ -14,16 +14,22 @@
           <v-alert dense text type="success" v-if="successData">
             Analisis completo
           </v-alert>
-          <v-card-actions>
-            <v-slider
-              v-model="accurate"
-              :tick-labels="accurateLabels"
-              label="Precision"
-              :max="2"
-              step="1"
-              ticks="always"
-              tick-size="1"
-            ></v-slider>
+          <v-card-actions class="justify-center">
+            <v-row>
+              <v-col cols="12" md="2" sm="1"></v-col>
+              <v-col cols="12" md="8" sm="10">
+                <v-slider
+                  v-model="accurate"
+                  :tick-labels="accurateLabels"
+                  label="Precision"
+                  :max="2"
+                  step="1"
+                  ticks="always"
+                  tick-size="10"
+                ></v-slider>
+              </v-col>
+              <v-col cols="12" md="2" sm="1"></v-col>
+            </v-row>
           </v-card-actions>
           <v-card-text>
             <v-row>

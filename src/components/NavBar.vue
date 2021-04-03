@@ -19,7 +19,7 @@
 
       <v-app-bar-title>
         <div class="d-flex align-center">
-          <router-link to="/" tag="div">
+          <router-link to="/">
             <slot>
               <v-img
                 class="shrink mr-2"
@@ -50,7 +50,9 @@
     </v-app-bar>
     <v-navigation-drawer right v-model="drawer" dark absolute temporary>
       <v-card>
-        <v-card-text> log in </v-card-text>
+        <v-card-actions class="justify-center">
+          <v-btn color="primary">Iniciar sesion </v-btn>
+        </v-card-actions>
       </v-card>
       <v-divider></v-divider>
       <v-list nav dense rounded>
@@ -67,9 +69,9 @@
           </v-list-item>
         </v-list-item-group>
       </v-list>
-      <v-card>
+      <!-- <v-card>
         <v-card-text> log in </v-card-text>
-      </v-card>
+      </v-card> -->
     </v-navigation-drawer>
   </div>
 </template>
