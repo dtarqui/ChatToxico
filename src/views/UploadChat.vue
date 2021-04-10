@@ -55,15 +55,20 @@
             </v-btn> -->
           </v-toolbar>
           <v-card-text class="text-center">
-            <div v-for="(message, i) in messages" :key="i">
-              {{ message.user + ": "+ message.message }}
+            <!-- <div v-for="(message, i) in messages" :key="i">
+              {{ message.from + ": " + message.msg }}
               <hr />
-            </div>
-            <br />
-            {{ sample }}
-
-            <br />
-            {{ messages.length }}
+            </div> -->
+            <!-- {{ sample }} -->
+            <v-row>
+              <v-col cols="12">
+                <message :user="users" :end="false"></message>
+              </v-col>
+              <v-col cols="12">
+                <message :user="users" :end="true"></message>
+              </v-col>
+            </v-row>
+            <!-- <chat-preview :users="users" :chat="messages"></chat-preview> -->
           </v-card-text>
         </v-card>
       </v-col>
@@ -72,10 +77,14 @@
 </template>
 
 <script>
+import Message from "../components/chats/Message.vue";
 import InfoChats from "../components/InfoChats.vue";
+// import ChatPreview from "../components/upload/ChatPreview.vue";
 export default {
   components: {
     InfoChats,
+    Message,
+    // ChatPreview,
   },
   data: () => ({
     sample: "Aqui apareceran tus resultados ;D",
@@ -84,6 +93,7 @@ export default {
     file: null,
     valid: false,
     messages: [],
+    users: [],
     persons: [],
     title: "Resultados",
     sizeRule: (value) =>
@@ -103,6 +113,7 @@ export default {
       }, 3000);
     },
     preview() {
+      console.log(this.users);
       this.validate();
       if (!this.valid || this.file === null) return;
       this.loading = true;
@@ -111,7 +122,7 @@ export default {
       // of the file in the v-model prop
       reader.readAsText(this.file);
       reader.onload = () => {
-        console.log(reader);
+        // console.log(reader);
         this.sample = null;
         let result1 = reader.result.split("\n");
         result1.shift();
@@ -130,18 +141,22 @@ export default {
           (msg) => !msg.includes("Cambió tu código de seguridad con")
         );
         final.map((val) => {
-          console.log(val);
+          // console.log(val);/
           const splitting = val.split(":");
-          console.log(splitting);
+          // console.log(splitting);
           const usertime = splitting[0] + ":" + splitting[1];
           let dateuser = usertime.split("-");
           splitting.shift();
           splitting.shift();
           const message = {
             date: dateuser[0],
-            user: dateuser[1].substr(1),
-            message: splitting.join(":"),
+            from: dateuser[1].substr(1),
+            msg: splitting.join(":"),
           };
+          console.log(message);
+          this.users.push(dateuser[1].substr(1));
+          var a = this.users;
+          this.users = a.filter(this.onlyUnique);
           this.messages.push(message);
         });
         this.loading = false;
@@ -149,6 +164,9 @@ export default {
     },
     validate() {
       this.$refs.form.validate();
+    },
+    onlyUnique(value, index, self) {
+      return self.indexOf(value) === index;
     },
   },
 };

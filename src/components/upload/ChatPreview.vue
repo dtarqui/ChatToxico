@@ -7,30 +7,44 @@
           :key="index"
           :class="[
             'd-flex flex-row align-center my-2',
-            item.from == 'user' ? 'justify-end' : null,
+            item.from != users[0] ? 'justify-end' : null,
           ]"
         >
-          <span v-if="item.from == 'user'" class="blue--text mr-3">{{
+          <span v-if="item.from != users[0]" class="blue--text mr-3">{{
             item.msg
           }}</span>
-          <v-avatar :color="item.from == 'user' ? 'indigo' : 'red'" size="36">
-            <span class="white--text">{{ item.from[0] }}</span>
+          <v-avatar :color="item.from == users[0] ? 'indigo' : 'red'" size="36">
+            <span class="white--text">{{
+              item.from.charAt(0) + item.from.charAt(1) + item.from.charAt(2)
+            }}</span>
           </v-avatar>
-          <span v-if="item.from != 'user'" class="blue--text ml-3">{{
+          <span v-if="item.from == users[0]" class="blue--text ml-3">{{
             item.msg
           }}</span>
         </div>
       </v-col>
     </v-row>
+    {{ users }}
   </v-container>
 </template>
 
 <script>
 export default {
+  props: {
+    users: {
+      type: Array,
+    },
+    chat: {
+      type: Array,
+      default: () => [],
+    },
+  },
   data: () => ({
-    chat: [],
     msg: null,
   }),
+  updated() {
+    console.log(this.users);
+  },
   methods: {
     send: function () {
       this.chat.push({
