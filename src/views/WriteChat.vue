@@ -114,7 +114,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="secondary">Borrar Todo</v-btn>
+            <v-btn color="secondary" @click="eraseAll">Borrar Todo</v-btn>
             <v-btn color="primary" :loading="analizing" @click="textAnalisis()"
               >Analizar Texto
             </v-btn>
@@ -235,12 +235,14 @@ export default {
         .finally(() => {
           this.analizing = false;
         });
-      // setTimeout(() => {
-      //   console.log(this.chat1);
-      //   console.log(this.chat2);
-      //   this.successData = true;
-      //   this.analizing = false;
-      // }, 3000);
+    },
+    eraseAll() {
+      this.dataUser1 = [];
+      this.dataUser2 = [];
+      this.chat1 = [""];
+      this.chat2 = [""];
+      this.analizing = false;
+      this.successData = false;
     },
   },
 };
