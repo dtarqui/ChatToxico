@@ -9,7 +9,8 @@ import axios from "axios";
 
 Vue.config.productionTip = false;
 
-axios.defaults.baseURL = "https://bakend-toxic-chat.herokuapp.com/";
+axios.defaults.baseURL = "http://localhost:8080/";
+// axios.defaults.baseURL = "https://bakend-toxic-chat.herokuapp.com/";
 new Vue({
   vuetify,
   router,

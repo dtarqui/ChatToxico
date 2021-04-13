@@ -163,12 +163,7 @@ export default {
         value: "data",
       },
     ],
-    dataUser1: [
-      {
-        name: "Frozen Yogurt",
-        data: "awqwr",
-      },
-    ],
+    dataUser1: [],
     dataUser2: [],
     chat1: [""],
     chat2: [""],
@@ -205,17 +200,41 @@ export default {
       });
       console.log(allChat1, allChat2);
       axios
-        .post("sentiment", allChat1)
+        .post("sentiment", { text: allChat1 })
         .then((res) => {
           console.log(res);
+          const result = res.data;
+          const data = [];
+          for (let key in result) {
+            const value = result[key];
+            const rest = { name: key, data: value };
+            console.log(rest);
+            data.push(rest);
+          }
           this.successData = true;
+          this.dataUser1 = data;
         })
         .finally(() => {
-          this.analizing = true;
+          this.analizing = false;
         });
-      axios.post("sentiment", allChat2).then((res) => {
-        console.log(res);
-      });
+      axios
+        .post("sentiment", { text: allChat2 })
+        .then((res) => {
+          console.log(res);
+          const result = res.data;
+          const data = [];
+          for (let key in result) {
+            const value = result[key];
+            const rest = { name: key, data: value };
+            console.log(rest);
+            data.push(rest);
+          }
+          this.successData = true;
+          this.dataUser2 = data;
+        })
+        .finally(() => {
+          this.analizing = false;
+        });
       // setTimeout(() => {
       //   console.log(this.chat1);
       //   console.log(this.chat2);
