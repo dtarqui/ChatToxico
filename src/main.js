@@ -5,8 +5,11 @@ import "roboto-fontface/css/roboto/roboto-fontface.css";
 import "@mdi/font/css/materialdesignicons.css";
 import router from "./router";
 import store from "./store/store.js";
+import axios from "axios";
+
 Vue.config.productionTip = false;
 
+axios.defaults.baseURL = "https://bakend-toxic-chat.herokuapp.com/";
 new Vue({
   vuetify,
   router,

@@ -121,15 +121,55 @@
           </v-card-actions>
         </v-card>
       </v-col>
+      <v-col cols="12">
+        <v-card class="mx-auto">
+          <v-toolbar color="primary" dark>
+            <v-toolbar-title>Resultados</v-toolbar-title>
+            <!-- <v-spacer></v-spacer>
+            <v-btn icon>
+              <v-icon>mdi-reload</v-icon>
+            </v-btn> -->
+          </v-toolbar>
+          <v-card-text class="text-center">
+            <v-row>
+              <result :headers="headers" :data="dataUser1"></result>
+              <result :headers="headers" :data="dataUser2"></result>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import InfoChats from "../components/InfoChats.vue";
+import Result from "../components/results/result.vue";
+import axios from "axios";
 export default {
-  components: { InfoChats },
+  components: { InfoChats, Result },
   data: () => ({
+    headers: [
+      {
+        text: "Data",
+        align: "start",
+        sortable: false,
+        value: "name",
+      },
+      {
+        text: "Values",
+        align: "end",
+        sortable: false,
+        value: "data",
+      },
+    ],
+    dataUser1: [
+      {
+        name: "Frozen Yogurt",
+        data: "awqwr",
+      },
+    ],
+    dataUser2: [],
     chat1: [""],
     chat2: [""],
     analizing: false,
@@ -155,15 +195,33 @@ export default {
     textAnalisis() {
       this.successData = false;
       this.analizing = true;
-      setTimeout(() => {
-        console.log(this.chat1);
-        console.log(this.chat2);
-        this.successData = true;
-        this.analizing = false;
-      }, 3000);
+      let allChat1 = "";
+      let allChat2 = "";
+      this.chat1.forEach((value) => {
+        allChat1 = allChat1 + value + "\n";
+      });
+      this.chat2.forEach((value) => {
+        allChat2 = allChat2 + value + "\n";
+      });
+      console.log(allChat1, allChat2);
+      axios
+        .post("sentiment", allChat1)
+        .then((res) => {
+          console.log(res);
+          this.successData = true;
+        })
+        .finally(() => {
+          this.analizing = true;
+        });
+      axios.post("sentiment", allChat2).then((res) => {
+        console.log(res);
+      });
       // setTimeout(() => {
-      //   this.successData = false;
-      // }, 8000);
+      //   console.log(this.chat1);
+      //   console.log(this.chat2);
+      //   this.successData = true;
+      //   this.analizing = false;
+      // }, 3000);
     },
   },
 };
