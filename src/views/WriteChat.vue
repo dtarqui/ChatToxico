@@ -14,18 +14,21 @@
           <v-alert dense text type="success" v-if="successData">
             Analisis completo
           </v-alert>
+          <v-alert dense text type="error" v-if="errorText">
+            Solo puedes crear una fila si la anterior esta completa
+          </v-alert>
           <v-card-actions class="justify-center">
             <v-row>
               <v-col cols="12" md="2" sm="1"></v-col>
-              <v-col cols="12" md="8" sm="10">
+              <v-col cols="12" md="8" sm="8">
                 <v-slider
                   v-model="accurate"
                   :tick-labels="accurateLabels"
-                  label="Precision"
+                  label="Precisión"
                   :max="2"
                   step="1"
                   ticks="always"
-                  tick-size="10"
+                  tick-size="5"
                 ></v-slider>
               </v-col>
               <v-col cols="12" md="2" sm="1"></v-col>
@@ -34,7 +37,7 @@
           <v-card-text>
             <v-row>
               <v-col cols="12" sm="6">
-                <v-row align="center" justify="space-between">
+                <v-row align="center" justify="space-between" no-gutters>
                   <v-col v-for="(text, i) in chat1" :key="i" cols="12">
                     <v-row align="center" justify="center" no-gutters>
                       <v-col cols="12" sm="2">
@@ -49,14 +52,17 @@
                         </v-btn>
                       </v-col>
                       <v-col cols="12" sm="10">
-                        <v-text-field
-                          label="Persona A"
-                          v-model="chat1[i]"
-                          clearable
-                        ></v-text-field>
+                        <v-card flat>
+                          <v-text-field
+                            label="Tú"
+                            v-model="chat1[i]"
+                            clearable
+                          ></v-text-field>
+                        </v-card>
                       </v-col>
                     </v-row>
                   </v-col>
+
                   <v-col cols="12">
                     <div align="center">
                       <v-btn
@@ -71,6 +77,7 @@
                   </v-col>
                 </v-row>
               </v-col>
+
               <v-col cols="12" sm="6">
                 <v-row align="center" justify="center" no-gutters>
                   <v-col v-for="(text, i) in chat2" :key="i" cols="12">
@@ -88,7 +95,7 @@
                       <v-col cols="12" sm="10">
                         <v-card flat>
                           <v-text-field
-                            label="Persona B"
+                            label="La persona con quien te comunicas"
                             v-model="chat2[i]"
                             clearable
                           ></v-text-field>
@@ -112,6 +119,7 @@
               </v-col>
             </v-row>
           </v-card-text>
+
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="secondary" @click="eraseAll">Borrar Todo</v-btn>
@@ -125,10 +133,10 @@
         <v-card class="mx-auto">
           <v-toolbar color="primary" dark>
             <v-toolbar-title>Resultados</v-toolbar-title>
-            <!-- <v-spacer></v-spacer>
-            <v-btn icon>
+            <v-spacer></v-spacer>
+            <v-btn icon v-if="successData" @click="textAnalisis()">
               <v-icon>mdi-reload</v-icon>
-            </v-btn> -->
+            </v-btn>
           </v-toolbar>
           <v-card-text class="text-center">
             <v-row>
@@ -169,6 +177,7 @@ export default {
     chat2: [""],
     analizing: false,
     successData: false,
+    errorText: false,
     accurateLabels: ["Menor", "Normal", "Maxima"],
     accurate: 0,
   }),
@@ -182,10 +191,20 @@ export default {
       }
     },
     addTextToChat1() {
-      if (this.chat1[this.chat1.length - 1] !== "") this.chat1.push("");
+      if (this.chat1[this.chat1.length - 1] !== "") {
+        this.errorText = false;
+        this.chat1.push("");
+      } else {
+        this.errorText = true;
+      }
     },
     addTextToChat2() {
-      if (this.chat2[this.chat2.length - 1] !== "") this.chat2.push("");
+      if (this.chat2[this.chat2.length - 1] !== "") {
+        this.errorText = false;
+        this.chat2.push("");
+      } else {
+        this.errorText = true;
+      }
     },
     textAnalisis() {
       this.successData = false;

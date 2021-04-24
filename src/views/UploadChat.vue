@@ -61,11 +61,15 @@
             </div> -->
             <!-- {{ sample }} -->
             <v-row>
-              <v-col cols="12">
-                <message :user="users" :end="false"></message>
-              </v-col>
-              <v-col cols="12">
-                <message :user="users" :end="true"></message>
+              <v-col cols="12" v-for="(msg, n) in messages" :key="n">
+                <message
+                  :id="n"
+                  :from="msg.from"
+                  :user="msg.user"
+                  :message="msg.message"
+                  :end="msg.from != users[0] ? true : false"
+                  @deleteRow="deleteChat($event)"
+                ></message>
               </v-col>
             </v-row>
             <!-- <chat-preview :users="users" :chat="messages"></chat-preview> -->
@@ -151,9 +155,9 @@ export default {
           const message = {
             date: dateuser[0],
             from: dateuser[1].substr(1),
-            msg: splitting.join(":"),
+            message: splitting.join(":"),
           };
-          console.log(message);
+          // console.log(message);
           this.users.push(dateuser[1].substr(1));
           var a = this.users;
           this.users = a.filter(this.onlyUnique);
@@ -167,6 +171,11 @@ export default {
     },
     onlyUnique(value, index, self) {
       return self.indexOf(value) === index;
+    },
+    deleteChat(id) {
+      if (id > -1) {
+        this.messages.splice(id, 1);
+      }
     },
   },
 };

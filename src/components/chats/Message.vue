@@ -3,7 +3,7 @@
     <v-row align="center" justify="center" no-gutters>
       <v-col cols="12" md="1" v-if="!end">
         <v-card-actions class="justify-center">
-          <v-btn fab x-small>
+          <v-btn fab x-small @click="deleteRow()">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-actions>
@@ -23,7 +23,7 @@
       </v-col>
       <v-col cols="12" md="1" v-if="end">
         <v-card-actions class="justify-center">
-          <v-btn fab x-small>
+          <v-btn fab x-small @click="deleteRow()">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-actions>
@@ -35,6 +35,10 @@
 <script>
 export default {
   props: {
+    id: {
+      type: Number,
+      default: -1,
+    },
     from: { type: String, default: "from" },
     user: { type: Array },
     // user: { type: String, default: "A user" },
@@ -42,9 +46,15 @@ export default {
     color: { type: String, default: "white" },
     end: {
       type: Boolean,
+      default: false,
     },
   },
   data: () => ({}),
+  methods: {
+    deleteRow() {
+      this.$emit("deleteRow", this.id);
+    },
+  },
 };
 </script>
 
