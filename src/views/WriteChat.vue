@@ -140,8 +140,12 @@
           </v-toolbar>
           <v-card-text class="text-center">
             <v-row>
-              <result :headers="headers" :data="dataUser1"></result>
-              <result :headers="headers" :data="dataUser2"></result>
+              <v-col cols="12" md="6">
+                <result :headers="headers" :data="dataUser1"></result>
+              </v-col>
+              <v-col cols="12" md="6">
+                <result :headers="headers" :data="dataUser2"></result>
+              </v-col>
             </v-row>
           </v-card-text>
         </v-card>
@@ -154,23 +158,11 @@
 import InfoChats from "../components/InfoChats.vue";
 import Result from "../components/results/result.vue";
 import axios from "axios";
+import { headers } from "../mixins/tableHeaders";
 export default {
   components: { InfoChats, Result },
+  mixins: [headers],
   data: () => ({
-    headers: [
-      {
-        text: "Data",
-        align: "start",
-        sortable: false,
-        value: "name",
-      },
-      {
-        text: "Values",
-        align: "end",
-        sortable: false,
-        value: "data",
-      },
-    ],
     dataUser1: [],
     dataUser2: [],
     chat1: [""],

@@ -49,17 +49,42 @@
         <v-card class="mx-auto">
           <v-toolbar color="primary" dark>
             <v-toolbar-title>{{ title }}</v-toolbar-title>
-            <!-- <v-spacer></v-spacer>
-            <v-btn icon>
-              <v-icon>mdi-magnify</v-icon>
-            </v-btn> -->
+            <v-spacer></v-spacer>
+            <v-btn icon v-if="successData">
+              <v-icon>mdi-reload</v-icon>
+            </v-btn>
           </v-toolbar>
           <v-card-text class="text-center">
-            <!-- <div v-for="(message, i) in messages" :key="i">
-              {{ message.from + ": " + message.msg }}
-              <hr />
-            </div> -->
-            <!-- {{ sample }} -->
+            <div v-if="messages.length == 0">
+              Aqui apareceran tus resultados ;D
+            </div>
+            <div v-else>
+              <v-card-title class="justify-center">
+                Usuarios en la conversacion
+              </v-card-title>
+              <v-card-text>
+                <div v-for="(user, i) in users" :key="i">
+                  {{ user }}
+                </div>
+              </v-card-text>
+              <v-divider></v-divider>
+
+              <v-row>
+                <v-col cols="12" md="4" v-for="(resul, i) in results" :key="i">
+                  {{ resul.user }}
+                  <result :headers="headers" :data="resul.result"></result>
+                </v-col>
+              </v-row>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" v-if="messages.length > 0">
+        <v-card class="mx-auto" max-width="80%">
+          <v-toolbar color="primary" dark>
+            <v-toolbar-title>Previsualizacion</v-toolbar-title>
+          </v-toolbar>
+          <v-card-text class="text-center">
             <v-row>
               <v-col cols="12" v-for="(msg, n) in messages" :key="n">
                 <message
@@ -72,7 +97,6 @@
                 ></message>
               </v-col>
             </v-row>
-            <!-- <chat-preview :users="users" :chat="messages"></chat-preview> -->
           </v-card-text>
         </v-card>
       </v-col>
@@ -81,42 +105,82 @@
 </template>
 
 <script>
+import axios from "axios";
 import Message from "../components/chats/Message.vue";
 import InfoChats from "../components/InfoChats.vue";
-// import ChatPreview from "../components/upload/ChatPreview.vue";
+import Result from "../components/results/result.vue";
+import { rules } from "../mixins/rules";
+import { headers } from "../mixins/tableHeaders";
 export default {
   components: {
     InfoChats,
     Message,
-    // ChatPreview,
+    Result,
   },
+  mixins: [rules, headers],
   data: () => ({
-    sample: "Aqui apareceran tus resultados ;D",
     successData: false,
     loading: false,
     file: null,
     valid: false,
-    messages: [],
-    users: [],
-    persons: [],
+    messages: [], // All messages
+    users: [], // Only users - no messages
+    results: [],
     title: "Resultados",
-    sizeRule: (value) =>
-      !value || value.size < 20000000 || "El archivo debe ser menos de 20MB!",
-    required: (v) => !!v || "Es necesario que escoja un archivo",
   }),
   methods: {
     analyze() {
-      console.log(this.valid);
-      this.validate();
-      if (!this.valid || this.file === null) return;
-      this.loading = true;
-      setInterval(() => {
-        this.loading = false;
-        this.successData = true;
-        this.title = "Resultados";
-      }, 3000);
+      this.preview().then(() => {
+        const accumulateMsg = [];
+        for (let i in this.users) {
+          accumulateMsg.push({ user: this.users[i] });
+        }
+        console.log(accumulateMsg);
+        for (let msg in this.messages) {
+          const chat = this.messages[msg];
+          for (let i in accumulateMsg) {
+            const user = accumulateMsg[i].user;
+            if (user === chat.from) {
+              if (accumulateMsg[i].message)
+                accumulateMsg[i].message =
+                  accumulateMsg[i].message + "\n" + chat.message;
+              else accumulateMsg[i].message = chat.message;
+            }
+          }
+        }
+        console.log(accumulateMsg);
+        for (let index in accumulateMsg) {
+          axios
+            .post("sentiment", { text: accumulateMsg[index].message })
+            .then((res) => {
+              console.log(res);
+              const result = res.data;
+              const data = [];
+              for (let key in result) {
+                const value = result[key];
+                const rest = { name: key, data: value };
+                console.log(rest);
+                data.push(rest);
+              }
+              this.successData = true;
+              this.results.push({
+                user: accumulateMsg[index].user,
+                result: data,
+              });
+            })
+            .finally(() => {
+              this.analizing = false;
+            });
+        }
+      });
+
+      // setInterval(() => {
+      //   this.loading = false;
+      //   this.successData = true;
+      //   this.title = "Resultados";
+      // }, 3000);
     },
-    preview() {
+    async preview() {
       console.log(this.users);
       this.validate();
       if (!this.valid || this.file === null) return;
@@ -125,46 +189,50 @@ export default {
       // Use the javascript reader object to load the contents
       // of the file in the v-model prop
       reader.readAsText(this.file);
-      reader.onload = () => {
-        // console.log(reader);
-        this.sample = null;
-        let result1 = reader.result.split("\n");
-        result1.shift();
-        result1.pop();
-        let result2 = result1.filter(
-          (msg) =>
-            !msg.includes(
-              "Los mensajes y las llamadas están cifrados de extremo a extremo. Nadie fuera de este chat, ni siquiera WhatsApp, puede leerlos ni escucharlos. Toca para obtener más información."
-            )
-        );
-        result1 = result2.filter(
-          (msg) => !msg.includes("se unió a través de un enlace de invitación")
-        );
-        result2 = result1.filter((msg) => !msg.includes("Añadiste a "));
-        let final = result2.filter(
-          (msg) => !msg.includes("Cambió tu código de seguridad con")
-        );
-        final.map((val) => {
-          // console.log(val);/
-          const splitting = val.split(":");
-          // console.log(splitting);
-          const usertime = splitting[0] + ":" + splitting[1];
-          let dateuser = usertime.split("-");
-          splitting.shift();
-          splitting.shift();
-          const message = {
-            date: dateuser[0],
-            from: dateuser[1].substr(1),
-            message: splitting.join(":"),
-          };
-          // console.log(message);
-          this.users.push(dateuser[1].substr(1));
-          var a = this.users;
-          this.users = a.filter(this.onlyUnique);
-          this.messages.push(message);
-        });
-        this.loading = false;
-      };
+      return new Promise((resolve) => {
+        reader.onload = () => {
+          // console.log(reader);
+          this.sample = null;
+          let result1 = reader.result.split("\n");
+          result1.shift();
+          result1.pop();
+          let result2 = result1.filter(
+            (msg) =>
+              !msg.includes(
+                "Los mensajes y las llamadas están cifrados de extremo a extremo. Nadie fuera de este chat, ni siquiera WhatsApp, puede leerlos ni escucharlos. Toca para obtener más información."
+              )
+          );
+          result1 = result2.filter(
+            (msg) =>
+              !msg.includes("se unió a través de un enlace de invitación")
+          );
+          result2 = result1.filter((msg) => !msg.includes("Añadiste a "));
+          let final = result2.filter(
+            (msg) => !msg.includes("Cambió tu código de seguridad con")
+          );
+          final.map((val) => {
+            // console.log(val);/
+            const splitting = val.split(":");
+            // console.log(splitting);
+            const usertime = splitting[0] + ":" + splitting[1];
+            let dateuser = usertime.split("-");
+            splitting.shift();
+            splitting.shift();
+            const message = {
+              date: dateuser[0],
+              from: dateuser[1].substr(1),
+              message: splitting.join(":"),
+            };
+            // console.log(message);
+            this.users.push(dateuser[1].substr(1));
+            var a = this.users;
+            this.users = a.filter(this.onlyUnique);
+            this.messages.push(message);
+          });
+          this.loading = false;
+          resolve();
+        };
+      });
     },
     validate() {
       this.$refs.form.validate();
