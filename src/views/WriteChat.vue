@@ -213,21 +213,38 @@ export default {
       axios
         .post("sentiment", { text: allChat1 })
         .then((res) => {
-          console.log(res);
           const result = res.data;
           const data = [];
           for (let key in result) {
             const value = result[key];
             const rest = { name: key, data: value };
-            console.log(rest);
             data.push(rest);
           }
           this.successData = true;
           this.dataUser1 = data;
+          axios
+            .post("entities", { text: allChat1 })
+            .then((res) => {
+              console.log(res);
+              const result = res.data[0];
+              const data = [];
+              for (let key in result) {
+                const value = result[key];
+                const rest = { name: key, data: value };
+                console.log(rest);
+                data.push(rest);
+              }
+              this.successData = true;
+              this.dataUser1 = this.dataUser1.concat(data);
+            })
+            .finally(() => {
+              this.analizing = false;
+            });
         })
         .finally(() => {
           this.analizing = false;
         });
+
       axios
         .post("sentiment", { text: allChat2 })
         .then((res) => {
@@ -242,6 +259,24 @@ export default {
           }
           this.successData = true;
           this.dataUser2 = data;
+          axios
+            .post("entities", { text: allChat2 })
+            .then((res) => {
+              console.log(res);
+              const result = res.data[0];
+              const data = [];
+              for (let key in result) {
+                const value = result[key];
+                const rest = { name: key, data: value };
+                console.log(rest);
+                data.push(rest);
+              }
+              this.successData = true;
+              this.dataUser2 = this.dataUser2.concat(data);
+            })
+            .finally(() => {
+              this.analizing = false;
+            });
         })
         .finally(() => {
           this.analizing = false;
