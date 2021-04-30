@@ -1,21 +1,42 @@
 <template>
-  <v-card class="mx-auto" width="90%" elevation="10" color="primary">
-    <v-card-title class="white--text">Paso 1</v-card-title>
+  <!-- <v-container> -->
+  <v-card
+    class="mx-auto"
+    width="90%"
+    elevation="10"
+    color="primary"
+    :img="image"
+  >
+    <v-toolbar color="primary">
+      <v-card-title class="white--text"
+        ><slot name="title"></slot
+      ></v-card-title>
+    </v-toolbar>
     <v-img
       class="white--text align-end justify-center"
-      src="https://picsum.photos/1920/1080?random"
-      height="350px"
+      height="300px"
+      gradient="to top right, rgba(100,115,201,.7), rgba(70, 150, 84, 0.7)"
     >
-      <v-card-title>Subiendo tu chat</v-card-title>
-      <v-card-text>
-        Puede subir tu chat de tal forma y asi obtener los resultados.
-      </v-card-text>
+      <v-col cols="12" md="8">
+        <v-card-title><slot name="subtitle"></slot></v-card-title>
+        <v-card-text>
+          <slot></slot>
+        </v-card-text>
+      </v-col>
     </v-img>
   </v-card>
+  <!-- </v-container> -->
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    image: {
+      type: String,
+      default: "https://picsum.photos/1920/1080?random",
+    },
+  },
+};
 </script>
 
 <style>

@@ -101,8 +101,8 @@ export default {
         icon: "mdi-file-upload-outline",
       },
       {
-        to: "/about",
-        text: "FAQ",
+        to: "/faq",
+        text: "Preguntas más frecuentes",
         icon: "mdi-help-circle-outline",
       },
     ];

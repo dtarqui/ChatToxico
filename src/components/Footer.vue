@@ -47,8 +47,12 @@ export default {
         to: "/upload_chat",
         icon: "mdi-file-upload-outline",
       },
+      // {
+      //   to: "/about",
+      //   icon: "mdi-nature-people",
+      // },
       {
-        to: "/about",
+        to: "/faq",
         icon: "mdi-help-circle-outline",
       },
     ],

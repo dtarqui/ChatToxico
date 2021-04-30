@@ -11,11 +11,6 @@ const routes = [
     component: () => import("../views/Home.vue"),
   },
   {
-    path: "/about",
-    name: "About",
-    component: () => import("../views/About.vue"),
-  },
-  {
     path: "/write_chat",
     name: "Write",
     component: () => import("../views/WriteChat.vue"),
@@ -24,6 +19,16 @@ const routes = [
     path: "/upload_chat",
     name: "Upload",
     component: () => import("../views/UploadChat.vue"),
+  },
+  {
+    path: "/about",
+    name: "About",
+    component: () => import("../views/About.vue"),
+  },
+  {
+    path: "/faq",
+    name: "FAQ",
+    component: () => import("../views/FAQ.vue"),
   },
 ];
 
