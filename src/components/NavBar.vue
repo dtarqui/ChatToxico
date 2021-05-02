@@ -46,12 +46,14 @@
       <v-btn icon>
         <v-icon>mdi-magnify</v-icon>
       </v-btn> -->
+      <login>Iniciar Sesion</login>
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
     </v-app-bar>
     <v-navigation-drawer right v-model="drawer" dark absolute temporary>
-      <v-card>
+      <v-card class="mx-auto">
         <v-card-actions class="justify-center">
-          <v-btn color="primary">Iniciar sesion </v-btn>
+          <!-- <v-btn color="primary">Iniciar sesion </v-btn> -->
+          <login>Iniciar sesion</login>
         </v-card-actions>
       </v-card>
       <v-divider></v-divider>
@@ -77,7 +79,9 @@
 </template>
 
 <script>
+import Login from "./login/Login.vue";
 export default {
+  components: { Login },
   data: () => ({
     drawer: false,
     group: null,

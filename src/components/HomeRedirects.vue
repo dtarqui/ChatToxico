@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" width="90%" flat>
+  <v-card class="mx-auto" width="70%" flat>
     <v-card-subtitle>
       <v-row align="center" justify="center">
         <v-col cols="12" sm="6" md="5">
@@ -8,8 +8,8 @@
               <div align="center">
                 <v-img
                   id="rounded"
-                  height="200px"
-                  width="200px"
+                  height="150px"
+                  width="150px"
                   :gradient="'to top right, rgba(127, 190, 51, 0.7), rgba(1, 103, 64, 0.4)'"
                   src="../assets/upload_chat.png"
                 ></v-img>
@@ -33,8 +33,8 @@
               <div align="center">
                 <v-img
                   id="rounded"
-                  height="200px"
-                  width="200px"
+                  height="150px"
+                  width="150px"
                   :gradient="'to top right, rgba(1, 103, 64, 0.4), rgba(127, 190, 51, 0.7)'"
                   src="../assets/write_chat.png"
                 ></v-img>

@@ -2,7 +2,7 @@
   <!-- <v-container> -->
   <v-card
     class="mx-auto"
-    width="90%"
+    width="70%"
     elevation="10"
     color="primary"
     :img="image"
@@ -14,7 +14,7 @@
     </v-toolbar>
     <v-img
       class="white--text align-end justify-center"
-      height="300px"
+      height="250px"
       gradient="to top right, rgba(100,115,201,.7), rgba(70, 150, 84, 0.7)"
     >
       <v-col cols="12" md="8">
