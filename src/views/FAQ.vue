@@ -2,12 +2,14 @@
   <v-container>
     <v-row justify="center">
       <v-col cols="12">
-        <v-toolbar color="primary">
-          <v-card-title class="white--text">
-            Preguntas más frecuentes
-          </v-card-title>
-        </v-toolbar>
         <v-expansion-panels inset multiple>
+          <v-expansion-panel>
+            <v-toolbar color="primary">
+              <v-toolbar-title class="white--text flex text-xs-center">
+                Preguntas más frecuentes
+              </v-toolbar-title>
+            </v-toolbar>
+          </v-expansion-panel>
           <v-expansion-panel v-for="(item, i) in 5" :key="i">
             <v-expansion-panel-header>
               Pregunta {{ i + 1 }}
