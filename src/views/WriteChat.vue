@@ -18,20 +18,22 @@
             Solo puedes crear una fila si la anterior esta completa
           </v-alert>
           <v-card-actions class="justify-center">
-            <v-row>
-              <v-col cols="12" md="2" sm="1"></v-col>
-              <v-col cols="12" md="8" sm="8">
-                <v-slider
-                  v-model="accurate"
-                  :tick-labels="accurateLabels"
-                  label="Precisión"
-                  :max="2"
-                  step="1"
-                  ticks="always"
-                  tick-size="5"
-                ></v-slider>
+            <v-row align="center" justify="end">
+              <v-col cols="12" md="4" sm="4">
+                <v-card>
+                  <v-card-text>
+                    <v-slider
+                      v-model="accurate"
+                      :tick-labels="accurateLabels"
+                      label="Precisión"
+                      :max="accurateLabels.length - 1"
+                      step="1"
+                      ticks="always"
+                      tick-size="3"
+                    ></v-slider>
+                  </v-card-text>
+                </v-card>
               </v-col>
-              <v-col cols="12" md="2" sm="1"></v-col>
             </v-row>
           </v-card-actions>
           <v-card-text>
@@ -157,11 +159,11 @@
 <script>
 import InfoChats from "../components/InfoChats.vue";
 import Result from "../components/results/result.vue";
-import axios from "axios";
-import { headers } from "../mixins/tableHeaders";
+import { headers } from "../mixins/table";
+import { writting } from "../mixins/files";
 export default {
   components: { InfoChats, Result },
-  mixins: [headers],
+  mixins: [headers, writting],
   data: () => ({
     dataUser1: [],
     dataUser2: [],
@@ -170,7 +172,7 @@ export default {
     analizing: false,
     successData: false,
     errorText: false,
-    accurateLabels: ["Menor", "Normal", "Maxima"],
+    accurateLabels: ["Baja", "Normal"],
     accurate: 0,
   }),
   methods: {
@@ -197,90 +199,6 @@ export default {
       } else {
         this.errorText = true;
       }
-    },
-    textAnalisis() {
-      this.successData = false;
-      this.analizing = true;
-      let allChat1 = "";
-      let allChat2 = "";
-      this.chat1.forEach((value) => {
-        allChat1 = allChat1 + value + "\n";
-      });
-      this.chat2.forEach((value) => {
-        allChat2 = allChat2 + value + "\n";
-      });
-      console.log(allChat1, allChat2);
-      axios
-        .post("sentiment", { text: allChat1 })
-        .then((res) => {
-          const result = res.data;
-          const data = [];
-          for (let key in result) {
-            const value = result[key];
-            const rest = { name: key, data: value };
-            data.push(rest);
-          }
-          this.successData = true;
-          this.dataUser1 = data;
-          axios
-            .post("entities", { text: allChat1 })
-            .then((res) => {
-              console.log(res);
-              const result = res.data[0];
-              const data = [];
-              for (let key in result) {
-                const value = result[key];
-                const rest = { name: key, data: value };
-                console.log(rest);
-                data.push(rest);
-              }
-              this.successData = true;
-              this.dataUser1 = this.dataUser1.concat(data);
-            })
-            .finally(() => {
-              this.analizing = false;
-            });
-        })
-        .finally(() => {
-          this.analizing = false;
-        });
-
-      axios
-        .post("sentiment", { text: allChat2 })
-        .then((res) => {
-          console.log(res);
-          const result = res.data;
-          const data = [];
-          for (let key in result) {
-            const value = result[key];
-            const rest = { name: key, data: value };
-            console.log(rest);
-            data.push(rest);
-          }
-          this.successData = true;
-          this.dataUser2 = data;
-          axios
-            .post("entities", { text: allChat2 })
-            .then((res) => {
-              console.log(res);
-              const result = res.data[0];
-              const data = [];
-              for (let key in result) {
-                const value = result[key];
-                const rest = { name: key, data: value };
-                console.log(rest);
-                data.push(rest);
-              }
-              this.successData = true;
-              this.dataUser2 = this.dataUser2.concat(data);
-            })
-            .finally(() => {
-              this.analizing = false;
-            });
-        })
-        .finally(() => {
-          this.analizing = false;
-        });
     },
     eraseAll() {
       this.dataUser1 = [];

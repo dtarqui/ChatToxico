@@ -10,15 +10,12 @@
               </v-toolbar-title>
             </v-toolbar>
           </v-expansion-panel>
-          <v-expansion-panel v-for="(item, i) in 5" :key="i">
+          <v-expansion-panel v-for="(faq, i) in faqs" :key="i">
             <v-expansion-panel-header>
-              Pregunta {{ i + 1 }}
+              {{ faq.question }}
             </v-expansion-panel-header>
             <v-expansion-panel-content>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              {{ faq.answer }}
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
@@ -28,7 +25,23 @@
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  data: () => ({
+    faqs: [],
+  }),
+  mounted() {
+    this.getFaqs();
+  },
+  methods: {
+    getFaqs() {
+      axios.get("faq/list").then((res) => {
+        console.log(res);
+        this.faqs = res.data;
+      });
+    },
+  },
+};
 </script>
 
 <style>
