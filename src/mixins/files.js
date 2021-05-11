@@ -60,22 +60,33 @@ export const upload = {
       reader.readAsText(this.file);
       return new Promise((resolve) => {
         reader.onload = () => {
-          // console.log(reader);
+          console.log(reader.result)
+          var pattern = /\d{1,2}\/\d{1,2}\/\d{2}/g;
+          var indices = []
+          var match
+          while ((match = pattern.exec(reader.result)) !== null) {
+              indices.push(match.index);
+          }
+          var resultx = [];
+          for (let i = 0; i < indices.length; i++) {
+              let str = reader.result.slice(indices[i], indices[i + 1]);
+              resultx.push(str);
+          }
           this.sample = null;
-          let result1 = reader.result.split("\n");
-          result1.shift();
-          result1.pop();
-          let result2 = result1.filter(
+          // let result1 = reader.result.split("\n");
+          resultx.shift();
+          resultx.pop();
+          let result2 = resultx.filter(
             (msg) =>
               !msg.includes(
                 "Los mensajes y las llamadas están cifrados de extremo a extremo. Nadie fuera de este chat, ni siquiera WhatsApp, puede leerlos ni escucharlos. Toca para obtener más información."
               )
           );
-          result1 = result2.filter(
+          resultx = result2.filter(
             (msg) =>
               !msg.includes("se unió a través de un enlace de invitación")
           );
-          result2 = result1.filter((msg) => !msg.includes("Añadiste a "));
+          result2 = resultx.filter((msg) => !msg.includes("Añadiste a "));
           let final = result2.filter(
             (msg) => !msg.includes("Cambió tu código de seguridad con")
           );
