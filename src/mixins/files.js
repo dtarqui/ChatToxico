@@ -2,12 +2,13 @@ import axios from "axios";
 export const upload = {
   methods: {
     analyze() {
+      this.clean();
       this.preview().then(() => {
         const accumulateMsg = [];
         for (let i in this.users) {
           accumulateMsg.push({ user: this.users[i] });
         }
-        console.log(accumulateMsg);
+        // console.log(accumulateMsg);
         for (let msg in this.messages) {
           const chat = this.messages[msg];
           for (let i in accumulateMsg) {
@@ -20,7 +21,7 @@ export const upload = {
             }
           }
         }
-        console.log(accumulateMsg);
+        // console.log(accumulateMsg);
         for (let index in accumulateMsg) {
           axios
             .post("sentiment", { text: accumulateMsg[index].message })
@@ -48,71 +49,74 @@ export const upload = {
     onlyUnique(value, index, self) {
       return self.indexOf(value) === index;
     },
-    async preview() {
-      console.log(this.users);
+    preview() {
       this.validate();
       if (!this.valid || this.file === null) return;
       this.loading = true;
       var reader = new FileReader();
-      // Use the javascript reader object to load the contents
-      // of the file in the v-model prop
       reader.readAsText(this.file);
       return new Promise((resolve) => {
         reader.onload = () => {
-          console.log(reader.result)
+          // console.log(reader.result)
           var pattern = /\d{1,2}\/\d{1,2}\/\d{2}/g;
-          var indices = []
-          var match
+          var index = [];
+          var match;
           while ((match = pattern.exec(reader.result)) !== null) {
-              indices.push(match.index);
+            index.push(match.index);
           }
           var resultx = [];
-          for (let i = 0; i < indices.length; i++) {
-              let str = reader.result.slice(indices[i], indices[i + 1]);
-              resultx.push(str);
+          for (let i = 0; i < index.length; i++) {
+            let str = reader.result.slice(index[i], index[i + 1]);
+            resultx.push(str);
           }
           this.sample = null;
           // let result1 = reader.result.split("\n");
+          // Delete first element
           resultx.shift();
+          // Delete last element
           resultx.pop();
-          let result2 = resultx.filter(
-            (msg) =>
-              !msg.includes(
-                "Los mensajes y las llamadas están cifrados de extremo a extremo. Nadie fuera de este chat, ni siquiera WhatsApp, puede leerlos ni escucharlos. Toca para obtener más información."
-              )
-          );
-          resultx = result2.filter(
-            (msg) =>
-              !msg.includes("se unió a través de un enlace de invitación")
-          );
-          result2 = resultx.filter((msg) => !msg.includes("Añadiste a "));
-          let final = result2.filter(
-            (msg) => !msg.includes("Cambió tu código de seguridad con")
-          );
-
+          let final = this.filterMessages(resultx);
           final.map((val) => {
-            // console.log(val);/
+            //  Get date and user
             const splitting = val.split(":");
-            // console.log(splitting);
             const usertime = splitting[0] + ":" + splitting[1];
-            let dateuser = usertime.split("-");
+            let dateuser = usertime.split(" - ");
+
+            // Deleting date an user
             splitting.shift();
             splitting.shift();
+
             const message = {
               date: dateuser[0],
-              from: dateuser[1].substr(1),
-              message: splitting.join(":"),
+              from: dateuser[1],
+              message: splitting.join(":"), // Joining if some message have ":"
             };
-            // console.log(message);
-            this.users.push(dateuser[1].substr(1));
-            var a = this.users;
-            this.users = a.filter(this.onlyUnique);
+
+            // Saving user
+            this.users.push(dateuser[1]);
+            // Delete repeat user
+            this.users = this.users.filter(this.onlyUnique);
             this.messages.push(message);
           });
-          this.loading = false;
           resolve();
+          this.loading = false;
         };
       });
+    },
+    filterMessages(data) {
+      return data.filter(
+        (msg) =>
+          !msg.includes(
+            "Los mensajes y las llamadas están cifrados de extremo a extremo. Nadie fuera de este chat, ni siquiera WhatsApp, puede leerlos ni escucharlos. Toca para obtener más información."
+          ) &&
+          !msg.includes("se unió a través de un enlace de invitación") &&
+          !msg.includes("Cambió tu código de seguridad con") &&
+          !msg.includes("Añadiste a ") 
+      );
+    },
+    clean() {
+      this.users = [];
+      this.messages = [];
     },
   },
 };
