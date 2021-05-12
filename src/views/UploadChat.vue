@@ -92,8 +92,8 @@
                   :from="msg.from"
                   :user="msg.user"
                   :message="msg.message"
-                  :end="msg.from != users[0] ? true : false"
-                  @deleteRow="deleteChat($event)"
+                  :end="false"
+
                 ></message>
               </v-col>
             </v-row>

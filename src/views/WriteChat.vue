@@ -17,25 +17,25 @@
           <v-alert dense text type="error" v-if="errorText">
             Solo puedes crear una fila si la anterior esta completa
           </v-alert>
-          <v-card-actions class="justify-center">
-            <v-row align="center" justify="end">
-              <v-col cols="12" md="4" sm="4">
-                <v-card>
-                  <v-card-text>
-                    <v-slider
-                      v-model="accurate"
-                      :tick-labels="accurateLabels"
-                      label="Precisión"
-                      :max="accurateLabels.length - 1"
-                      step="1"
-                      ticks="always"
-                      tick-size="3"
-                    ></v-slider>
-                  </v-card-text>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-card-actions>
+<!--          <v-card-actions class="justify-center">-->
+<!--            <v-row align="center" justify="end">-->
+<!--              <v-col cols="12" md="4" sm="4">-->
+<!--                <v-card>-->
+<!--                  <v-card-text>-->
+<!--                    <v-slider-->
+<!--                      v-model="accurate"-->
+<!--                      :tick-labels="accurateLabels"-->
+<!--                      label="Precisión"-->
+<!--                      :max="accurateLabels.length - 1"-->
+<!--                      step="1"-->
+<!--                      ticks="always"-->
+<!--                      tick-size="3"-->
+<!--                    ></v-slider>-->
+<!--                  </v-card-text>-->
+<!--                </v-card>-->
+<!--              </v-col>-->
+<!--            </v-row>-->
+<!--          </v-card-actions>-->
           <v-card-text>
             <v-row>
               <v-col cols="12" sm="6">

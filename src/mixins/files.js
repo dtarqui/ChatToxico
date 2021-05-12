@@ -31,7 +31,6 @@ export const upload = {
               for (let key in result) {
                 const value = result[key];
                 const rest = { name: key, data: value };
-                console.log(rest);
                 data.push(rest);
               }
               this.successData = true;
@@ -90,6 +89,7 @@ export const upload = {
           let final = result2.filter(
             (msg) => !msg.includes("Cambió tu código de seguridad con")
           );
+
           final.map((val) => {
             // console.log(val);/
             const splitting = val.split(":");
