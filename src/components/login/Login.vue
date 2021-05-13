@@ -136,13 +136,13 @@
                     <v-spacer></v-spacer>
                     <v-col class="d-flex ml-auto" cols="12" sm="3" xsm="12">
                       <v-btn
-                        x-large
                         block
                         :disabled="!valid"
                         color="success"
                         @click="validate"
-                        >Register</v-btn
                       >
+                        Registrarse
+                      </v-btn>
                     </v-col>
                   </v-row>
                 </v-form>

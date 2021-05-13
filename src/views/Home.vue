@@ -39,7 +39,7 @@
         <v-card class="mx-auto" width="70%" elevation="10" dark color="primary">
           <v-card-title>
             Necesitas mas ayuda?
-            <v-btn text to="/about"> Pulsa aqui </v-btn>
+            <v-btn text to="/faq"> Pulsa aqui </v-btn>
             y te mostraremos como usar la herramienta
           </v-card-title>
           <v-card-text> </v-card-text>
