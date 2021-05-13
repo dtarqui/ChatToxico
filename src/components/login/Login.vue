@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-dialog v-model="dialog" persistent max-width="600px" min-width="360px">
+    <v-dialog v-model="dialog" max-width="600px" min-width="360px">
       <template v-slot:activator="{ on, attrs }">
         <v-card-text class="text-end">
           <v-btn color="primary" v-bind="attrs" v-on="on">
@@ -66,9 +66,11 @@
                         Iniciar Sesion
                       </v-btn>
                     </v-col>
-                    <!-- <v-col cols="12">
-                      <v-btn> OAuth </v-btn>
-                    </v-col> -->
+                    <v-col cols="12">
+                      <v-btn href="https://fulano-es.us.auth0.com/login">
+                        OAuth
+                      </v-btn>
+                    </v-col>
                   </v-row>
                 </v-form>
               </v-card-text>

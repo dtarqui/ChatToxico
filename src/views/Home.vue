@@ -2,6 +2,19 @@
   <div>
     <HomeRedirects></HomeRedirects>
     <br />
+    <v-card class="mx-auto" width="70%" elevation="10" dark color="secondary">
+      <v-card-title class="white--text">
+        <v-img
+          class="shrink mr-2"
+          contain
+          :src="require('../assets/logo_proy.png')"
+          transition="scale-transition"
+          width="40"
+        />
+        Chat Toxico
+      </v-card-title>
+    </v-card>
+    <br />
     <HomeInfo :image="require('../assets/write_your_chat.jpg')">
       <template v-slot:title>Escribe tu chat </template>
       <template v-slot:subtitle>Escribiendo tu chat </template>
@@ -20,6 +33,19 @@
       pulsando el botón de “previsualizar” antes de enviarlo pulsado el botón de
       “analizar” y así tener una mejor precisión.
     </HomeInfo>
+    <br />
+    <v-row>
+      <v-col cols="12">
+        <v-card class="mx-auto" width="70%" elevation="10" dark color="primary">
+          <v-card-title>
+            Necesitas mas ayuda?
+            <v-btn text to="/about"> Pulsa aqui </v-btn>
+            y te mostraremos como usar la herramienta
+          </v-card-title>
+          <v-card-text> </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
   </div>
 </template>
 

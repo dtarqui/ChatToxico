@@ -19,9 +19,14 @@
           </template>
         </Steps>
       </v-col>
+      <v-col cols="12">
+        <v-card color="primary" dark>
+          <v-card-title>Exportando tu chat de WhatsApp</v-card-title>
+        </v-card>
+      </v-col>
       <v-col cols="12" md="6" v-for="(step, index) in steps" :key="index">
         <Steps>
-          <v-img :src="step.image"></v-img>
+          <v-img :src="step.image" contain height="500px"></v-img>
           <template v-slot:title>
             {{ step.text }}
           </template>
@@ -44,24 +49,28 @@ export default {
   data: () => ({
     steps: [
       {
-        text: "Fist step",
-        description: "This is a description",
-        image: "https://picsum.photos/1920/1080?random",
+        text: "Primer paso",
+        description:
+          "Selecciona el chat del que deseas exportar la conversacion",
+        image: require("../assets/exportWhatsApp/Step1.jpg"),
       },
       {
-        text: "Second step",
-        description: "This is a description",
-        image: "https://picsum.photos/1920/1080?random",
+        text: "Segundo paso",
+        description:
+          "Presiona el icono de tres puntos y se abrira un menu seis opciones",
+        image: require("../assets/exportWhatsApp/Step2.jpg"),
       },
       {
-        text: "Third step",
-        description: "This is a description",
-        image: "https://picsum.photos/1920/1080?random",
+        text: "Tercer paso",
+        description:
+          "Presiona la opcion de 'Mas' y obtendras otras opciones tal como se ve en la imagen",
+        image: require("../assets/exportWhatsApp/Step3.jpg"),
       },
       {
-        text: "Fourth step",
-        description: "This is a description",
-        image: "https://picsum.photos/1920/1080?random",
+        text: "Ultimo paso",
+        description:
+          "Por ultimo, una vez presionado la opcion de 'Exportar chat' aparecera una ventana nueva y deberas exportar el chat sin multimedia",
+        image: require("../assets/exportWhatsApp/Step4.jpg"),
       },
     ],
   }),

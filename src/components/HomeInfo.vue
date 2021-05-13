@@ -7,11 +7,11 @@
     color="primary"
     :img="image"
   >
-    <v-toolbar color="primary">
+    <!-- <v-toolbar color="primary">
       <v-card-title class="white--text"
         ><slot name="title"></slot
       ></v-card-title>
-    </v-toolbar>
+    </v-toolbar> -->
     <v-img
       class="white--text align-end justify-center"
       height="250px"
