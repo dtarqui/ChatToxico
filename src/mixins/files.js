@@ -131,10 +131,10 @@ export const writting = {
         return { value: b, color: "red" };
       }
       if (c > b && c > a && c > d) {
-        return { value: c, color: "yellow" };
+        return { value: c, color: "black" };
       }
       if (d > b && d > c && d > a) {
-        return { value: d, color: "black" };
+        return { value: d, color: "yellow" };
       }
     },
     eraseAll() {
