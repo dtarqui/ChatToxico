@@ -9,8 +9,14 @@ import axios from "axios";
 
 Vue.config.productionTip = false;
 
-axios.defaults.baseURL = "http://localhost:8080/";
-// axios.defaults.baseURL = "https://bakend-toxic-chat.herokuapp.com/";
+Vue.filter("roundPercentage", function(value) {
+  if (!value) return "0%";
+  value = value.toFixed(2).toString();
+  return value + "%";
+});
+
+// axios.defaults.baseURL = "http://localhost:8080/";
+axios.defaults.baseURL = "https://bakend-toxic-chat.herokuapp.com/";
 new Vue({
   vuetify,
   router,

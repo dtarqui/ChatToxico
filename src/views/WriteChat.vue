@@ -17,48 +17,21 @@
           <v-alert dense text type="error" v-if="errorText">
             Solo puedes crear una fila si la anterior esta completa
           </v-alert>
-<!--          <v-card-actions class="justify-center">-->
-<!--            <v-row align="center" justify="end">-->
-<!--              <v-col cols="12" md="4" sm="4">-->
-<!--                <v-card>-->
-<!--                  <v-card-text>-->
-<!--                    <v-slider-->
-<!--                      v-model="accurate"-->
-<!--                      :tick-labels="accurateLabels"-->
-<!--                      label="Precisión"-->
-<!--                      :max="accurateLabels.length - 1"-->
-<!--                      step="1"-->
-<!--                      ticks="always"-->
-<!--                      tick-size="3"-->
-<!--                    ></v-slider>-->
-<!--                  </v-card-text>-->
-<!--                </v-card>-->
-<!--              </v-col>-->
-<!--            </v-row>-->
-<!--          </v-card-actions>-->
           <v-card-text>
             <v-row>
               <v-col cols="12" sm="6">
-                <v-row align="center" justify="space-between" no-gutters>
+                <v-row align="center" justify="space-between">
                   <v-col v-for="(text, i) in chat1" :key="i" cols="12">
-                    <v-row align="center" justify="center" no-gutters>
-                      <v-col cols="12" sm="2">
-                        <v-btn
-                          class="mx-2"
-                          icon
-                          small
-                          color="secondary"
-                          @click="deleteText(text, i, 'chat1')"
-                        >
-                          <v-icon dark> mdi-delete </v-icon>
-                        </v-btn>
-                      </v-col>
+                    <v-row align="center" justify="center">
                       <v-col cols="12" sm="10">
                         <v-card flat>
                           <v-text-field
                             label="Tú"
                             v-model="chat1[i]"
+                            @click:append-outer="deleteText(text, i, 'chat1')"
+                            :append-outer-icon="chat1[i] ? 'mdi-delete' : ''"
                             clearable
+                            hide-details
                           ></v-text-field>
                         </v-card>
                       </v-col>
@@ -81,25 +54,18 @@
               </v-col>
 
               <v-col cols="12" sm="6">
-                <v-row align="center" justify="center" no-gutters>
+                <v-row align="center" justify="center">
                   <v-col v-for="(text, i) in chat2" :key="i" cols="12">
-                    <v-row align="center" justify="center" no-gutters>
-                      <v-col cols="12" sm="2">
-                        <v-btn
-                          class="mx-2"
-                          icon
-                          color="secondary"
-                          @click="deleteText(text, i, 'chat2')"
-                        >
-                          <v-icon dark> mdi-delete </v-icon>
-                        </v-btn>
-                      </v-col>
+                    <v-row align="center" justify="center">
                       <v-col cols="12" sm="10">
                         <v-card flat>
                           <v-text-field
                             label="La persona con quien te comunicas"
                             v-model="chat2[i]"
+                            @click:append-outer="deleteText(text, i, 'chat2')"
+                            :append-outer-icon="chat2[i] ? 'mdi-delete' : ''"
                             clearable
+                            hide-details
                           ></v-text-field>
                         </v-card>
                       </v-col>
@@ -143,10 +109,20 @@
           <v-card-text class="text-center">
             <v-row>
               <v-col cols="12" md="6">
-                <result :headers="headers" :data="dataUser1"></result>
+                <result
+                  :headers="headers"
+                  :data="dataUser1"
+                  :value="max1.value * 100"
+                  :color="max1.color"
+                ></result>
               </v-col>
               <v-col cols="12" md="6">
-                <result :headers="headers" :data="dataUser2"></result>
+                <result
+                  :headers="headers"
+                  :data="dataUser2"
+                  :value="max2.value * 100"
+                  :color="max2.color"
+                ></result>
               </v-col>
             </v-row>
           </v-card-text>
@@ -169,6 +145,8 @@ export default {
     dataUser2: [],
     chat1: [""],
     chat2: [""],
+    max1: { value: 0, color: "" },
+    max2: { value: 0, color: "" },
     analizing: false,
     successData: false,
     errorText: false,
@@ -200,14 +178,7 @@ export default {
         this.errorText = true;
       }
     },
-    eraseAll() {
-      this.dataUser1 = [];
-      this.dataUser2 = [];
-      this.chat1 = [""];
-      this.chat2 = [""];
-      this.analizing = false;
-      this.successData = false;
-    },
+ 
   },
 };
 </script>
