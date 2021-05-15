@@ -72,7 +72,12 @@
               <v-row>
                 <v-col cols="12" md="4" v-for="(resul, i) in results" :key="i">
                   {{ resul.user }}
-                  <result :headers="headers" :data="resul.result"></result>
+                  <result
+                    :headers="headers"
+                    :data="resul.result"
+                    :color="resul.max.color"
+                    :value="resul.max.value * 100"
+                  ></result>
                 </v-col>
               </v-row>
             </div>
@@ -93,7 +98,6 @@
                   :user="msg.user"
                   :message="msg.message"
                   :end="false"
-
                 ></message>
               </v-col>
             </v-row>
@@ -110,7 +114,7 @@ import InfoChats from "../components/InfoChats.vue";
 import Result from "../components/results/result.vue";
 import { rules } from "../mixins/rules";
 import { headers } from "../mixins/table";
-import { upload } from "../mixins/files";
+import { upload } from "../mixins/uploading";
 export default {
   components: {
     InfoChats,

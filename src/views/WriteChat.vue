@@ -136,7 +136,7 @@
 import InfoChats from "../components/InfoChats.vue";
 import Result from "../components/results/result.vue";
 import { headers } from "../mixins/table";
-import { writting } from "../mixins/files";
+import { writting } from "../mixins/writting";
 export default {
   components: { InfoChats, Result },
   mixins: [headers, writting],

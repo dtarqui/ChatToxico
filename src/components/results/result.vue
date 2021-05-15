@@ -8,10 +8,13 @@
         </v-progress-linear>
       </v-col>
       <v-col cols="12">
+        <v-divider></v-divider>
+      </v-col>
+      <v-col cols="12">
         <v-data-table
           :headers="headers"
           :items="data"
-          class="elevation-1"
+          class="elevation-5"
           hide-default-footer
         >
           <template v-slot:no-data>
@@ -66,7 +69,7 @@ export default {
       if (res == "green") {
         return "No es toxico";
       }
-      if (res == "black") {
+      if (res == "grey") {
         return "Es neutral";
       }
       if (res == "yellow") {
