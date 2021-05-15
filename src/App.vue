@@ -39,6 +39,12 @@ export default {
   data: () => ({
     //
   }),
+  mounted() {
+    console.log(this.$auth);
+    console.log(this.$auth.getIdTokenClaims());
+    console.log(this.$auth.getTokenSilently());
+    console.log(this.$auth.getTokenWithPopup());
+  },
 };
 </script>
 
