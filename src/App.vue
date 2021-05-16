@@ -8,17 +8,17 @@
         :parallax="true"
         height="2000px"
       > -->
-        <v-row>
-          <v-col cols="12">
-            <div id="app">
-              <br />
-              <transition name="slide" mode="out-in">
-                <router-view></router-view>
-              </transition>
-              <br />
-            </div>
-          </v-col>
-        </v-row>
+      <v-row>
+        <v-col cols="12">
+          <div id="app">
+            <br />
+            <transition name="slide" mode="out-in">
+              <router-view></router-view>
+            </transition>
+            <br />
+          </div>
+        </v-col>
+      </v-row>
       <!-- </v-parallax> -->
     </v-main>
     <Footer></Footer>
@@ -39,6 +39,12 @@ export default {
   data: () => ({
     //
   }),
+  mounted() {
+    console.log(this.$auth);
+    console.log(this.$auth.getIdTokenClaims());
+    console.log(this.$auth.getTokenSilently());
+    console.log(this.$auth.getTokenWithPopup());
+  },
 };
 </script>
 

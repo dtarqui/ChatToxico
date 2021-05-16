@@ -42,11 +42,12 @@
       <v-spacer></v-spacer>
       <!-- <v-btn icon>
         <v-icon>mdi-heart</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
       </v-btn> -->
-      <login>Iniciar Sesion</login>
+      <v-btn color="primary" @click="login()">
+        <!-- <v-icon>mdi-magnify</v-icon> -->
+        Iniciar Sesion
+      </v-btn>
+      <!-- <login>Iniciar Sesion</login> -->
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
     </v-app-bar>
     <v-navigation-drawer right v-model="drawer" dark absolute temporary>
@@ -87,6 +88,11 @@ export default {
     group: null,
     routing: [],
   }),
+  methods: {
+    login() {
+      this.$auth.loginWithRedirect();
+    },
+  },
   mounted() {
     this.routing = [
       {
