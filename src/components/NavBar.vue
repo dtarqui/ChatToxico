@@ -33,33 +33,42 @@
           <h3>Chat Toxico</h3>
         </div>
       </v-app-bar-title>
-      <!-- <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn> -->
       <v-spacer></v-spacer>
-      <!-- <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn> -->
-      <v-btn color="primary" @click="login()">
-        <!-- <v-icon>mdi-magnify</v-icon> -->
+      <profile-avatar
+        v-if="$auth.isAuthenticated"
+        :user="$auth.user"
+      ></profile-avatar>
+      <v-btn color="primary" @click="login()" v-else>
         Iniciar Sesion
+        <v-icon small>mdi-login</v-icon>
       </v-btn>
       <!-- <login>Iniciar Sesion</login> -->
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
     </v-app-bar>
+
     <v-navigation-drawer right v-model="drawer" dark absolute temporary>
       <v-card class="mx-auto">
         <v-card-actions class="justify-center">
-          <!-- <v-btn color="primary">Iniciar sesion </v-btn> -->
-          <login>Iniciar sesion</login>
+          <v-btn
+            color="primary"
+            v-if="!$auth.isAuthenticated"
+            block
+            @click="login()"
+          >
+            Iniciar sesion
+          </v-btn>
+          <!-- <login>Iniciar sesion</login> -->
         </v-card-actions>
       </v-card>
       <v-divider></v-divider>
       <v-list nav dense rounded>
         <v-list-item-group v-model="group">
+          <v-list-item to="/account" v-if="$auth.isAuthenticated">
+            <v-list-item-icon>
+              <v-icon>mdi-account</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Mi cuenta</v-list-item-title>
+          </v-list-item>
           <v-list-item
             v-for="(routes, index) in routing"
             :key="index"
@@ -80,9 +89,11 @@
 </template>
 
 <script>
-import Login from "./login/Login.vue";
+import ProfileAvatar from "./ProfileAvatar.vue";
+
+// import Login from "./login/Login.vue";
 export default {
-  components: { Login },
+  components: { ProfileAvatar },
   data: () => ({
     drawer: false,
     group: null,

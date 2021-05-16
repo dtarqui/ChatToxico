@@ -24,7 +24,6 @@ const routes = [
     path: "/about",
     name: "About",
     component: () => import("../views/About.vue"),
-    beforeEnter: authGuard,
   },
   {
     path: "/faq",
@@ -33,8 +32,14 @@ const routes = [
   },
   {
     path: "/callback",
-    name: "callback",
+    name: "Callback",
     component: () => import("../views/Callback.vue"),
+  },
+  {
+    path: "/account",
+    name: "Account",
+    component: () => import("../views/Account.vue"),
+    beforeEnter: authGuard,
   },
 ];
 
