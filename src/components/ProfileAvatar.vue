@@ -11,12 +11,6 @@
     <v-card>
       <v-list-item-content class="justify-center">
         <div class="mx-auto text-center">
-          <!-- <v-avatar color="white">
-            <v-img v-if="user.userPhoto" :src="user.userPhoto" alt="John" />
-            <span class="white--text headline" v-else>
-              {{ user.initials }}
-            </span>
-          </v-avatar> -->
           <h3>{{ $auth.user.name }}</h3>
           <p class="caption mt-1">
             {{ $auth.user.email }}
