@@ -36,7 +36,7 @@
           >
             Name:
           </v-col>
-          <v-col>{{ selected.$auth.name }}</v-col>
+          <v-col>{{ $auth.name }}</v-col>
           <v-col
               class="text-right mr-4 mb-2"
               tag="strong"

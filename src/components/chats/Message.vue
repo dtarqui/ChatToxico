@@ -9,34 +9,30 @@
 <!--        </v-card-actions>-->
 <!--      </v-col>-->
       <v-col cols="12" md="10">
-        <v-card-title :class="[end ? 'justify-end' : null]">
-<!--          <v-avatar color="red">-->
-<!--            <span class="white&#45;&#45;text headline">-->
-<!--              {{ from.charAt(0) + from.charAt(1) }}-->
-<!--            </span>-->
-<!--          </v-avatar>-->
-          {{ from }}
+        <v-card-title :class="[end ? 'justify-end' : null]" >
+          <v-alert
+              text
+              :color="colorUser"
+          >
+            <h3 class="headline">
+              {{ user }}
+            </h3>
+            <div>{{
+                message
+              }}</div>
+
+          </v-alert>
         </v-card-title>
-        <v-card-subtitle :class="[end ? 'text-end' : 'text-start']">{{
-          message
-        }}</v-card-subtitle>
+        <v-card-subtitle :class="[end ? 'text-end' : 'text-start']"></v-card-subtitle>
       </v-col>
       <v-col cols="12" md="2">
-        <v-icon color="red">{{emoticon}}</v-icon>
+        <v-icon :color="coloremoticon">{{emoticon}}</v-icon>
       </v-col>
-<!--      <v-col cols="12" md="1" v-if="end">-->
-<!--        <v-card-actions class="justify-center">-->
-<!--          <v-btn fab x-small @click="deleteRow()">-->
-<!--            <v-icon>mdi-close</v-icon>-->
-<!--          </v-btn>-->
-<!--        </v-card-actions>-->
-<!--      </v-col>-->
     </v-row>
   </v-card>
 </template>
 
 <script>
-import axios from "axios";
 
 export default {
   props: {
@@ -44,56 +40,31 @@ export default {
       type: Number,
       default: -1,
     },
-    from: {type: String, default: "from"},
-    user: {type: Array},
-    // user: { type: String, default: "A user" },
+    emoticon: {type: String, default: "emoticon"},
+    users: {type: Array},
+    user: { type: String, default: "A user" },
     message: {type: String, default: "message"},
-    color: {type: String, default: "white"},
+    coloremoticon: {type: String, default: ""},
+    usercolor:{type: Array},
     end: {
       type: Boolean,
       default: false,
     },
   },
   data: () => ({
-    emoticon: ""
+    colorUser: ""
   }),
   mounted() {
-    axios
-        .post("sentiment", {text: this.message})
-        .then((res) => {
-          this.result = res.data;
-          if (this.result.positive){
-            this.result.positive
-            this.emoticon=this.majorResult(this.result);
-          }
-        })
-        .finally(() => {
-          this.analizing = false;
-        });
+    this.userColor();
   },
   methods: {
-    majorResult(result){
-      const emo={
-        emoticon: "",
-        color: ""
-      }
-      if(result.positive>=result.negative || result.positive>=result.mixed || result.positive>=result.neutral){
-        emo.emoticon="mdi-emoticon"
-        emo.color="red"
-        return emo
-      }
-      if(result.negative>=result.positive || result.negative>=result.mixed || result.negative>=result.neutral){
-        return "mdi-emoticon-devil"
-      }
-      if(result.neutral>=result.negative || result.neutral>=result.mixed || result.neutral>=result.positive){
-        return "mdi-emoticon-devil"
-      }
-      if(result.mixed>=result.negative || result.mixed>=result.positive || result.mixed>=result.neutral){
-        return "mdi-emoticon-devil"
-      }
-
+    userColor(){
+      this.usercolor.map(value => {
+        if(value.user===this.user){
+          this.colorUser=value.color;
+        }
+      })
     },
-
     deleteRow() {
       this.$emit("deleteRow", this.id);
     },

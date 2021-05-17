@@ -18,6 +18,7 @@ export const upload = {
     analyze() {
       this.clean();
       this.preview().then(() => {
+
         const accumulateMsg = [];
         for (let i in this.users) {
           accumulateMsg.push({ user: this.users[i] });
@@ -66,6 +67,7 @@ export const upload = {
             });
         }
       });
+
     },
     onlyUnique(value, index, self) {
       return self.indexOf(value) === index;
@@ -120,9 +122,47 @@ export const upload = {
             this.messages.push(message);
           });
           resolve();
+          this.analizeMessages();
+          this.colorUser();
           this.loading = false;
         };
+
       });
+
+    },
+    analizeMessages(){
+      const formData={
+        data: this.messages,
+      }
+      axios
+          .post("sentiment/messages", formData)
+          .then((res) => {
+            console.log(res);
+            this.messagesResult= res.data
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+    },
+    generarLetra(){
+      var letras = ["a","b","c","d","e","f","0","1","2","3","4","5","6","7","8","9"];
+      var numero = (Math.random()*15).toFixed(0);
+      return letras[numero];
+    },
+    colorHEX(){
+      var coolor = "";
+      for(var i=0;i<6;i++){
+        coolor = coolor + this.generarLetra() ;
+      }
+      return "#" + coolor;
+    },
+
+    colorUser(){
+      this.users.map((value) => {
+        this.usercolors.push({user: value, color: this.colorHEX()})
+      });
+      console.log(this.usercolors)
     },
     filterMessages(data) {
       return data.filter(

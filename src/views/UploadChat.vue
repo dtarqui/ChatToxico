@@ -1,3 +1,4 @@
+<script src="../mixins/uploading.js"></script>
 <template>
   <v-container>
     <v-row align="center" justify="center">
@@ -91,12 +92,14 @@
           </v-toolbar>
           <v-card-text class="text-center">
             <v-row>
-              <v-col cols="12" v-for="(msg, n) in messages" :key="n">
+              <v-col cols="12" v-for="(msg, n) in messagesResult" :key="n">
                 <message
                   :id="n"
-                  :from="msg.from"
-                  :user="msg.user"
-                  :message="msg.message"
+                  :emoticon="msg.emoticon"
+                  :user="msg.from"
+                  :message="msg.messages"
+                  :coloremoticon="msg.coloremoticon"
+                  :usercolor="usercolors"
                   :end="false"
                 ></message>
               </v-col>
@@ -131,7 +134,10 @@ export default {
     users: [], // Only users - no messages
     results: [],
     title: "Resultados",
+    messagesResult: [],
+    usercolors: []
   }),
+
   methods: {
     validate() {
       this.$refs.form.validate();
