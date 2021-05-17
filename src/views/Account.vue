@@ -15,11 +15,11 @@
     </div>
 
     <div class="row">
-      <v-card>
-        <v-card-text class="rounded w-100">{{
-          JSON.stringify($auth.user, null, 2)
-        }}</v-card-text>
-      </v-card>
+<!--      <v-card>-->
+<!--        <v-card-text class="rounded w-100">{{-->
+<!--          JSON.stringify($auth.user, null, 2)-->
+<!--        }}</v-card-text>-->
+<!--      </v-card>-->
       <v-card
           class="pt-6 mx-auto"
           flat
