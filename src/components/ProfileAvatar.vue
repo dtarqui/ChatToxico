@@ -17,7 +17,7 @@
               {{ user.initials }}
             </span>
           </v-avatar> -->
-          <h3>{{ user.given_name + " " + user.family_name }}</h3>
+          <h3>{{ user.name }}</h3>
           <p class="caption mt-1">
             {{ user.email }}
           </p>
