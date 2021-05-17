@@ -17,9 +17,9 @@
               {{ user.initials }}
             </span>
           </v-avatar> -->
-          <h3>{{ user.name }}</h3>
+          <h3>{{ $auth.user.name }}</h3>
           <p class="caption mt-1">
-            {{ user.email }}
+            {{ $auth.user.email }}
           </p>
 
           <v-btn depressed text to="/account"> Cuenta </v-btn>
