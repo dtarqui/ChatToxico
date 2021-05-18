@@ -1,4 +1,3 @@
-<script src="../mixins/uploading.js"></script>
 <template>
   <v-container>
     <v-row align="center" justify="center">

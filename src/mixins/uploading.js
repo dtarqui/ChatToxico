@@ -18,7 +18,8 @@ export const upload = {
     analyze() {
       this.clean();
       this.preview().then(() => {
-
+        this.colorUser();
+        this.analizeMessages();
         const accumulateMsg = [];
         for (let i in this.users) {
           accumulateMsg.push({ user: this.users[i] });
@@ -125,8 +126,7 @@ export const upload = {
             this.messages.push(message);
           });
           resolve();
-          this.analizeMessages();
-          this.colorUser();
+
           this.loading = false;
         };
 
@@ -134,11 +134,12 @@ export const upload = {
 
     },
     analizeMessages(){
-      const formData={
-        data: this.messages,
-      }
+      console.log(this.messages)
+      // const formData={
+      //   data: this.messages,
+      // }
       axios
-          .post("sentiment/messages", formData)
+          .post("sentiment/messages", this.messages)
           .then((res) => {
             console.log(res);
             this.messagesResult= res.data
@@ -175,8 +176,14 @@ export const upload = {
           ) &&
           !msg.includes("se unió a través de un enlace de invitación") &&
           !msg.includes("Cambió tu código de seguridad con") &&
-          !msg.includes("Añadiste a ") &&
-          !msg.includes("<Multimedia omitido>")
+          !msg.includes("Añadiste a") &&
+          !msg.includes("<Multimedia omitido>") &&
+            !msg.includes("se unió usando el enlace de invitación de este grupo") &&
+            !msg.includes("salió del grupo") &&
+            !msg.includes("Se te añadió al grupo") &&
+            !msg.includes("cambió a") &&
+            !msg.includes("eliminó a") &&
+            !msg.includes("creó el grupo \"")
       );
     },
     clean() {
