@@ -34,14 +34,17 @@
         </div>
       </v-app-bar-title>
       <v-spacer></v-spacer>
-      <profile-avatar
-        v-if="$auth.isAuthenticated"
-        :user="$auth.user"
-      ></profile-avatar>
-      <v-btn color="primary" @click="login()" v-else>
-        Iniciar Sesion
-        <v-icon small>mdi-login</v-icon>
-      </v-btn>
+      <div v-if="!$auth.loading">
+        <profile-avatar
+            v-if="$auth.isAuthenticated"
+            :user="$auth.user"
+        ></profile-avatar>
+        <v-btn color="primary" @click="login()" v-else>
+          Iniciar Sesion
+          <v-icon small>mdi-login</v-icon>
+        </v-btn>
+      </div>
+
       <!-- <login>Iniciar Sesion</login> -->
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
     </v-app-bar>

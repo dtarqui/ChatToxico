@@ -69,10 +69,13 @@ export const upload = {
       });
 
     },
+    saveResults(){
+
+    },
     onlyUnique(value, index, self) {
       return self.indexOf(value) === index;
     },
-    preview() {
+    async preview() {
       this.validate();
       if (!this.valid || this.file === null) return;
       this.loading = true;
@@ -172,7 +175,8 @@ export const upload = {
           ) &&
           !msg.includes("se unió a través de un enlace de invitación") &&
           !msg.includes("Cambió tu código de seguridad con") &&
-          !msg.includes("Añadiste a ")
+          !msg.includes("Añadiste a ") &&
+          !msg.includes("<Multimedia omitido>")
       );
     },
     clean() {

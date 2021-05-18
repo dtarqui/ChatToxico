@@ -41,9 +41,9 @@ export default {
   }),
   mounted() {
     console.log(this.$auth);
-    console.log(this.$auth.getIdTokenClaims());
-    console.log(this.$auth.getTokenSilently());
-    console.log(this.$auth.getTokenWithPopup());
+    // console.log(this.$auth.getIdTokenClaims());
+    // console.log(this.$auth.getTokenSilently());
+    // console.log(this.$auth.getTokenWithPopup());
   },
 };
 </script>
