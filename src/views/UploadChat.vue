@@ -135,7 +135,7 @@ export default {
     results: [],
     title: "Resultados",
     messagesResult: [],
-    usercolors: []
+    usercolors: [],
   }),
 
   methods: {
