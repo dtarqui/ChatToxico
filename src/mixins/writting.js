@@ -2,20 +2,6 @@ import axios from "axios";
 
 export const writting = {
   methods: {
-    maxNumber(a, b, c, d) {
-      if (a > b && a > c && a > d) {
-        return { value: a, color: "green" };
-      }
-      if (b > a && b > c && b > d) {
-        return { value: b, color: "red" };
-      }
-      if (c > b && c > a && c > d) {
-        return { value: c, color: "grey" };
-      }
-      if (d > b && d > c && d > a) {
-        return { value: d, color: "yellow" };
-      }
-    },
     eraseAll() {
       this.dataUser1 = [];
       this.dataUser2 = [];

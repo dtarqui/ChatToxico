@@ -1,24 +1,9 @@
 import axios from "axios";
 export const upload = {
   methods: {
-    maxNumber(a, b, c, d) {
-      if (a > b && a > c && a > d) {
-        return { value: a, color: "green" };
-      }
-      if (b > a && b > c && b > d) {
-        return { value: b, color: "red" };
-      }
-      if (c > b && c > a && c > d) {
-        return { value: c, color: "grey" };
-      }
-      if (d > b && d > c && d > a) {
-        return { value: d, color: "yellow" };
-      }
-    },
     analyze() {
       this.clean();
       this.preview().then(() => {
-
         const accumulateMsg = [];
         for (let i in this.users) {
           accumulateMsg.push({ user: this.users[i] });
@@ -67,23 +52,20 @@ export const upload = {
             });
         }
       });
-
     },
-    saveResults(){
-
-    },
+    saveResults() {},
     onlyUnique(value, index, self) {
       return self.indexOf(value) === index;
     },
-    async preview() {
+    preview() {
       this.validate();
       if (!this.valid || this.file === null) return;
       this.loading = true;
       var reader = new FileReader();
       reader.readAsText(this.file);
+
       return new Promise((resolve) => {
         reader.onload = () => {
-          // console.log(reader.result)
           var pattern = /\d{1,2}\/\d{1,2}\/\d{2}/g;
           var index = [];
           var match;
@@ -96,7 +78,7 @@ export const upload = {
             resultx.push(str);
           }
           this.sample = null;
-          // let result1 = reader.result.split("\n");
+
           // Delete first element
           resultx.shift();
           // Delete last element
@@ -120,52 +102,65 @@ export const upload = {
 
             // Saving user
             this.users.push(dateuser[1]);
+
             // Delete repeat user
             this.users = this.users.filter(this.onlyUnique);
             this.messages.push(message);
           });
-          resolve();
-          this.analizeMessages();
           this.colorUser();
-          this.loading = false;
+          resolve();
         };
-
       });
-
     },
-    analizeMessages(){
-      const formData={
+    analizeMessages() {
+      const formData = {
         data: this.messages,
-      }
+      };
       axios
-          .post("sentiment/messages", formData)
-          .then((res) => {
-            console.log(res);
-            this.messagesResult= res.data
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-
+        .post("sentiment/messages", formData)
+        .then((res) => {
+          console.log(res);
+          this.messagesResult = res.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
-    generarLetra(){
-      var letras = ["a","b","c","d","e","f","0","1","2","3","4","5","6","7","8","9"];
-      var numero = (Math.random()*15).toFixed(0);
+    generarLetra() {
+      var letras = [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+      ];
+      var numero = (Math.random() * 15).toFixed(0);
       return letras[numero];
     },
-    colorHEX(){
+    colorHEX() {
       var coolor = "";
-      for(var i=0;i<6;i++){
-        coolor = coolor + this.generarLetra() ;
+      for (var i = 0; i < 6; i++) {
+        coolor = coolor + this.generarLetra();
       }
       return "#" + coolor;
     },
 
-    colorUser(){
+    colorUser() {
       this.users.map((value) => {
-        this.usercolors.push({user: value, color: this.colorHEX()})
+        this.usercolors.push({ user: value, color: this.colorHEX() });
       });
-      console.log(this.usercolors)
+      console.log(this.usercolors);
     },
     filterMessages(data) {
       return data.filter(

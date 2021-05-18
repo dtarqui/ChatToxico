@@ -137,9 +137,10 @@ import InfoChats from "../components/InfoChats.vue";
 import Result from "../components/results/result.vue";
 import { headers } from "../mixins/table";
 import { writting } from "../mixins/writting";
+import { generic } from "../mixins/generic";
 export default {
   components: { InfoChats, Result },
-  mixins: [headers, writting],
+  mixins: [headers, writting, generic],
   data: () => ({
     dataUser1: [],
     dataUser2: [],

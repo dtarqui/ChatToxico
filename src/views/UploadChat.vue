@@ -1,4 +1,3 @@
-<script src="../mixins/uploading.js"></script>
 <template>
   <v-container>
     <v-row align="center" justify="center">
@@ -63,10 +62,18 @@
               <v-card-title class="justify-center">
                 Usuarios en la conversacion
               </v-card-title>
-              <v-card-text>
-                <div v-for="(user, i) in users" :key="i">
-                  {{ user }}
-                </div>
+              <v-card-text class="text-center">
+                <v-row>
+                  <v-col
+                    cols="12"
+                    md="6"
+                    sm="6"
+                    v-for="(user, i) in users"
+                    :key="i"
+                  >
+                    {{ user }}
+                  </v-col>
+                </v-row>
               </v-card-text>
               <v-divider></v-divider>
 
@@ -118,13 +125,14 @@ import Result from "../components/results/result.vue";
 import { rules } from "../mixins/rules";
 import { headers } from "../mixins/table";
 import { upload } from "../mixins/uploading";
+import { generic } from "../mixins/generic";
 export default {
   components: {
     InfoChats,
     Message,
     Result,
   },
-  mixins: [rules, headers, upload],
+  mixins: [rules, headers, upload, generic],
   data: () => ({
     successData: false,
     loading: false,
