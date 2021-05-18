@@ -4,7 +4,8 @@ export const upload = {
     analyze() {
       this.clean();
       this.preview().then(() => {
-        this.analizeMessages();
+        this.colorUser();
+        this.analizeMessages().then(this.loadresults=true).finally();
         const accumulateMsg = [];
         for (let i in this.users) {
           accumulateMsg.push({ user: this.users[i] });
@@ -27,7 +28,7 @@ export const upload = {
           axios
             .post("sentiment", { text: accumulateMsg[index].message })
             .then((res) => {
-              // console.log(res);
+              //console.log(res);
               const result = res.data;
               const data = [];
               for (let key in result) {
@@ -53,6 +54,7 @@ export const upload = {
             });
         }
       });
+
     },
     saveResults() {},
     onlyUnique(value, index, self) {
@@ -64,7 +66,6 @@ export const upload = {
       this.loading = true;
       var reader = new FileReader();
       reader.readAsText(this.file);
-
       return new Promise((resolve) => {
         reader.onload = () => {
           var pattern = /\d{1,2}\/\d{1,2}\/\d{2}/g;
@@ -103,12 +104,10 @@ export const upload = {
 
             // Saving user
             this.users.push(dateuser[1]);
-
             // Delete repeat user
             this.users = this.users.filter(this.onlyUnique);
             this.messages.push(message);
           });
-          this.colorUser();
           this.loading = false;
           resolve();
         };
@@ -128,26 +127,9 @@ export const upload = {
           console.log(error);
         });
     },
-    generarLetra() {
-      var letras = [
-        "a",
-        "b",
-        "c",
-        "d",
-        "e",
-        "f",
-        "0",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-      ];
-      var numero = (Math.random() * 15).toFixed(0);
+    generarLetra(){
+      var letras = ["a","b","c","d","e","f","0","1","2","3","4","5","6","7","8","9"];
+      var numero = (Math.random()*15).toFixed(0);
       return letras[numero];
     },
     colorHEX() {

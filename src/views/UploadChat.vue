@@ -98,7 +98,8 @@
             <v-toolbar-title>Previsualizacion</v-toolbar-title>
           </v-toolbar>
           <v-card-text class="text-center">
-            <v-row>
+
+            <v-row v-if="loadresults!=false">
               <v-col cols="12" v-for="(msg, n) in messages" :key="n">
                 <message
                   :id="n"
@@ -142,7 +143,7 @@ export default {
     users: [], // Only users - no messages
     results: [],
     title: "Resultados",
-    messagesResult: [],
+    loadresults: false,
     usercolors: [],
   }),
 
