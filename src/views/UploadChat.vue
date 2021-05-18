@@ -98,7 +98,15 @@
             <v-toolbar-title>Previsualizacion</v-toolbar-title>
           </v-toolbar>
           <v-card-text class="text-center">
-
+            <v-card-text>
+              Please stand by
+              <v-progress-linear
+                  indeterminate
+                  color="white"
+                  class="mb-0"
+                  v-if="loadresults!=false"
+              ></v-progress-linear>
+            </v-card-text>
             <v-row v-if="loadresults!=false">
               <v-col cols="12" v-for="(msg, n) in messages" :key="n">
                 <message
@@ -143,7 +151,7 @@ export default {
     users: [], // Only users - no messages
     results: [],
     title: "Resultados",
-    loadresults: false,
+    loadresults: true,
     usercolors: [],
   }),
 

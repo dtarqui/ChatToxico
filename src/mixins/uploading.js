@@ -3,9 +3,10 @@ export const upload = {
   methods: {
     analyze() {
       this.clean();
+      this.loadresults=false
       this.preview().then(() => {
         this.colorUser();
-        this.analizeMessages().then(this.loadresults=true).finally();
+        this.analizeMessages().then(this.loadresults=true);
         const accumulateMsg = [];
         for (let i in this.users) {
           accumulateMsg.push({ user: this.users[i] });
@@ -113,7 +114,7 @@ export const upload = {
         };
       });
     },
-    analizeMessages() {
+    async analizeMessages() {
       // const formData = {
       //   data: this.messages,
       // };
