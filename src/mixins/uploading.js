@@ -133,7 +133,7 @@ export const upload = {
       });
 
     },
-    analizeMessages(){
+    async analizeMessages(){
       console.log(this.messages)
       // const formData={
       //   data: this.messages,
