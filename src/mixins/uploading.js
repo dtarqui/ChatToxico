@@ -4,7 +4,6 @@ export const upload = {
     analyze() {
       this.clean();
       this.preview().then(() => {
-        this.colorUser();
         this.analizeMessages();
         const accumulateMsg = [];
         for (let i in this.users) {
@@ -28,7 +27,7 @@ export const upload = {
           axios
             .post("sentiment", { text: accumulateMsg[index].message })
             .then((res) => {
-              console.log(res);
+              // console.log(res);
               const result = res.data;
               const data = [];
               for (let key in result) {
@@ -109,20 +108,21 @@ export const upload = {
             this.users = this.users.filter(this.onlyUnique);
             this.messages.push(message);
           });
+          this.colorUser();
           this.loading = false;
           resolve();
         };
       });
     },
     analizeMessages() {
-      const formData = {
-        data: this.messages,
-      };
+      // const formData = {
+      //   data: this.messages,
+      // };
       axios
-        .post("sentiment/messages", formData)
+        .post("sentiment/messages", this.messages)
         .then((res) => {
           console.log(res);
-          this.messagesResult = res.data;
+          this.messages = res.data;
         })
         .catch((error) => {
           console.log(error);
@@ -162,7 +162,7 @@ export const upload = {
       this.users.map((value) => {
         this.usercolors.push({ user: value, color: this.colorHEX() });
       });
-      console.log(this.usercolors);
+      // console.log(this.usercolors);
     },
     filterMessages(data) {
       return data.filter(
@@ -174,12 +174,15 @@ export const upload = {
           !msg.includes("Cambió tu código de seguridad con") &&
           !msg.includes("Añadiste a") &&
           !msg.includes("<Multimedia omitido>") &&
-            !msg.includes("se unió usando el enlace de invitación de este grupo") &&
-            !msg.includes("salió del grupo") &&
-            !msg.includes("Se te añadió al grupo") &&
-            !msg.includes("cambió a") &&
-            !msg.includes("eliminó a") &&
-            !msg.includes("creó el grupo \"")
+          !msg.includes(
+            "se unió usando el enlace de invitación de este grupo"
+          ) &&
+          !msg.includes("salió del grupo") &&
+          !msg.includes("Se te añadió al grupo") &&
+          !msg.includes("cambió a") &&
+          !msg.includes("eliminó a") &&
+          !msg.includes('creó el grupo "') &&
+          !msg.includes("Creaste el grupo")
       );
     },
     clean() {

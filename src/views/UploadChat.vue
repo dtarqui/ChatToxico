@@ -71,7 +71,7 @@
                     v-for="(user, i) in users"
                     :key="i"
                   >
-                    {{ user }}
+                    <v-card> {{ user }}</v-card>
                   </v-col>
                 </v-row>
               </v-card-text>
@@ -99,12 +99,12 @@
           </v-toolbar>
           <v-card-text class="text-center">
             <v-row>
-              <v-col cols="12" v-for="(msg, n) in messagesResult" :key="n">
+              <v-col cols="12" v-for="(msg, n) in messages" :key="n">
                 <message
                   :id="n"
                   :emoticon="msg.emoticon"
                   :user="msg.from"
-                  :message="msg.messages"
+                  :message="msg.message"
                   :coloremoticon="msg.coloremoticon"
                   :usercolor="usercolors"
                   :end="false"

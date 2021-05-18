@@ -22,7 +22,7 @@
         ></v-card-subtitle>
       </v-col>
       <v-col cols="12" md="2">
-        <v-icon :color="coloremoticon">{{ emoticon }}</v-icon>
+        <v-icon :color="coloremoticon" v-if="emoticon">{{ emoticon }}</v-icon>
       </v-col>
     </v-row>
   </v-card>
@@ -35,7 +35,7 @@ export default {
       type: Number,
       default: -1,
     },
-    emoticon: { type: String, default: "emoticon" },
+    emoticon: { type: String, default: null },
     users: { type: Array },
     user: { type: String, default: "A user" },
     message: { type: String, default: "message" },
