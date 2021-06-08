@@ -2,13 +2,13 @@ export const headers = {
   data: () => ({
     headers: [
       {
-        text: "Data",
+        text: "Nombre (Dato)",
         align: "start",
         sortable: false,
         value: "name",
       },
       {
-        text: "Values",
+        text: "Valor",
         align: "end",
         sortable: false,
         value: "data",

@@ -9,6 +9,7 @@ export const writting = {
       this.chat2 = [""];
       this.analizing = false;
       this.successData = false;
+      this.errorText = false;
     },
     textAnalisis() {
       this.successData = false;
@@ -23,15 +24,16 @@ export const writting = {
       });
       console.log(allChat1, allChat2);
       axios
-        .post("sentiment", { text: allChat1 })
+        .post("toxic/chat/text", { text: allChat1 })
         .then((res) => {
-          const result = res.data;
+          const result = res.data.comprehend;
           const data = [];
           for (let key in result) {
             const value = result[key];
             const rest = { name: key, data: value };
             data.push(rest);
           }
+          console.log(result);
           this.successData = true;
           this.dataUser1 = data;
           this.max1 = this.maxNumber(
@@ -41,67 +43,6 @@ export const writting = {
             result.mixed
           );
           console.log(this.max1);
-          axios
-            .post("entities", { text: allChat1 })
-            .then((res) => {
-              console.log(res);
-              const result = res.data[0];
-              const data = [];
-              for (let key in result) {
-                const value = result[key];
-                const rest = { name: key, data: value };
-                console.log(rest);
-                data.push(rest);
-              }
-              this.successData = true;
-              this.dataUser1 = this.dataUser1.concat(data);
-            })
-            .finally(() => {
-              this.analizing = false;
-            });
-        })
-        .finally(() => {
-          this.analizing = false;
-        });
-
-      axios
-        .post("sentiment", { text: allChat2 })
-        .then((res) => {
-          console.log(res);
-          const result = res.data;
-          const data = [];
-          for (let key in result) {
-            const value = result[key];
-            const rest = { name: key, data: value };
-            console.log(rest);
-            data.push(rest);
-          }
-          this.successData = true;
-          this.dataUser2 = data;
-          this.max2 = this.maxNumber(
-            result.positive,
-            result.negative,
-            result.neutral,
-            result.mixed
-          );
-          axios
-            .post("entities", { text: allChat2 })
-            .then((res) => {
-              console.log(res);
-              const result = res.data[0];
-              const data = [];
-              for (let key in result) {
-                const value = result[key];
-                const rest = { name: key, data: value };
-                console.log(rest);
-                data.push(rest);
-              }
-              this.successData = true;
-              this.dataUser2 = this.dataUser2.concat(data);
-            })
-            .finally(() => {
-              this.analizing = false;
-            });
         })
         .finally(() => {
           this.analizing = false;

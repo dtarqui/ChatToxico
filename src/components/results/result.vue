@@ -2,15 +2,28 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        {{ result(color) }}
-        <v-progress-linear :value="value" :color="color" height="20" rounded>
+        <v-card>
+          <v-card-text class="text-center">
+            {{ result(color) }}
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" v-if="more">
+        <!-- <v-progress-linear :value="value" :color="color" height="20" rounded>
           {{ value | roundPercentage }}
+        </v-progress-linear> -->
+        <p>Personalidad de la persona:</p>
+        <v-progress-linear
+          v-for="(value, i) in data"
+          :key="i"
+          :value="value.data * 100"
+          height="20"
+          :color="value.name ? value.name : 'yellow'"
+          rounded
+        >
+          {{ value.name }} en un {{ value.data | roundPercentage }}
         </v-progress-linear>
-      </v-col>
-      <v-col cols="12">
-        <v-divider></v-divider>
-      </v-col>
-      <v-col cols="12">
+        <br />
         <v-data-table
           :headers="headers"
           :items="data"
@@ -42,6 +55,14 @@ export default {
       type: String,
       default: "black",
     },
+    more: {
+      type: Boolean,
+      default: false,
+    },
+    user: {
+      type: String,
+      default: "",
+    },
   },
   data: () => ({}),
   // watch: {
@@ -60,7 +81,9 @@ export default {
   //     deep: true,
   //   },
   // },
-
+  mounted() {
+    console.log(this.data);
+  },
   methods: {
     result(res) {
       if (res == "red") {
@@ -70,7 +93,7 @@ export default {
         return "No es toxico";
       }
       if (res == "grey") {
-        return "Es neutral";
+        return "Este usuario " + this.user + "es neutral";
       }
       if (res == "yellow") {
         return "Es medio toxico";

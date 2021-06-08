@@ -9,7 +9,7 @@ import axios from "axios";
 
 import { Auth0Plugin } from "./auth";
 
-import { domain, clientId ,audience } from "../auth_config.json";
+import { domain, clientId, audience } from "../auth_config.json";
 
 Vue.use(Auth0Plugin, {
   domain,
@@ -27,12 +27,13 @@ Vue.config.productionTip = false;
 
 Vue.filter("roundPercentage", function(value) {
   if (!value) return "0%";
+  value = value * 100;
   value = value.toFixed(2).toString();
   return value + "%";
 });
 
-// axios.defaults.baseURL = "http://localhost:8080/";
-axios.defaults.baseURL = "https://bakend-toxic-chat.herokuapp.com/";
+axios.defaults.baseURL = "http://localhost:8080/";
+// axios.defaults.baseURL = "https://bakend-toxic-chat.herokuapp.com/";
 
 new Vue({
   vuetify,

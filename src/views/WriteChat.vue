@@ -107,13 +107,22 @@
             </v-btn>
           </v-toolbar>
           <v-card-text class="text-center">
-            <v-row>
+            <v-row v-if="!successData">
+              <v-col cols="12">
+                <v-card-text class="text-center">
+                  <h4>Aqui apareceran los resultados</h4>
+                </v-card-text>
+              </v-col>
+            </v-row>
+
+            <v-row v-else justify="center">
               <v-col cols="12" md="6">
                 <result
                   :headers="headers"
                   :data="dataUser1"
                   :value="max1.value * 100"
                   :color="max1.color"
+                  :more="moreInfo"
                 ></result>
               </v-col>
               <v-col cols="12" md="6">
@@ -122,7 +131,16 @@
                   :data="dataUser2"
                   :value="max2.value * 100"
                   :color="max2.color"
+                  :more="moreInfo"
                 ></result>
+              </v-col>
+              <v-col cols="12" md="3">
+                <v-switch
+                  v-model="moreInfo"
+                  v-if="successData"
+                  color="primary"
+                  label="Mas informacion"
+                ></v-switch>
               </v-col>
             </v-row>
           </v-card-text>
@@ -144,8 +162,13 @@ export default {
   data: () => ({
     dataUser1: [],
     dataUser2: [],
-    chat1: [""],
-    chat2: [""],
+    moreInfo: false,
+    chat1: ["Hola", "Claro que si", "Ojala funcione"],
+    chat2: [
+      "gg la materia",
+      "estamos realmente jodidos",
+      "solo queda rezar a diosito",
+    ],
     max1: { value: 0, color: "" },
     max2: { value: 0, color: "" },
     analizing: false,
