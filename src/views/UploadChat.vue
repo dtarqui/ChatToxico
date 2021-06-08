@@ -78,14 +78,26 @@
               <v-divider></v-divider>
 
               <v-row>
-                <v-col cols="12" md="4" v-for="(resul, i) in results" :key="i">
+                <v-col cols="12" md="4" v-for="(resul,i) in results" :key="i">
                   {{ resul.user }}
                   <result
                     :headers="headers"
                     :data="resul.result"
+                    :more="more"
                     :color="resul.max.color"
                     :value="resul.max.value * 100"
                   ></result>
+                </v-col>
+              </v-row>
+              <v-divider></v-divider>
+              <v-row>
+                <v-col cols="12" md="3">
+                  <v-switch
+                      v-model="more"
+                      v-if="successData"
+                      color="primary"
+                      label="Mas informacion"
+                  ></v-switch>
                 </v-col>
               </v-row>
             </div>
@@ -143,6 +155,7 @@ export default {
   },
   mixins: [rules, headers, upload, generic],
   data: () => ({
+    more:false,
     successData: false,
     loading: false,
     file: null,

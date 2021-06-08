@@ -4,7 +4,19 @@
       <v-col cols="12">
         <v-card>
           <v-card-text class="text-center">
-            {{ result(color) }}
+<!--            {{ result(color) }}-->
+            <div v-if="da!=null">
+              <div v-for="(value, i) in da" :key="i">
+                <div v-if="value.name!='mixed'">El usuario es un {{isdata(value)}} </div>
+                <div v-if="value.name=='mixed'">No se puede definir el resultado</div>
+              </div>
+            </div>
+            <div v-if="da.length==0">
+              <div v-for="(value, i) in etc" :key="i">
+                <div v-if="value.name!='mixed'">El usuario es un {{isdata(value)}}</div>
+                <div v-if="value.name=='mixed'">No se puede definir el resultado</div>
+              </div>
+            </div>
           </v-card-text>
         </v-card>
       </v-col>
@@ -64,7 +76,10 @@ export default {
       default: "",
     },
   },
-  data: () => ({}),
+  data: () => ({
+    da:[],
+    etc:[]
+  }),
   // watch: {
   //   data: {
   //     handler() {
@@ -83,6 +98,7 @@ export default {
   // },
   mounted() {
     console.log(this.data);
+    this.interpretation()
   },
   methods: {
     result(res) {
@@ -99,6 +115,29 @@ export default {
         return "Es medio toxico";
       }
     },
+    interpretation(){
+      this.data.map((value) =>{
+        if (value.data>0.50){
+          this.da.push(value) ;
+        }
+        if(value.data>=0 && value.data<0.50){
+          if(value.data>=0.20){
+            this.etc.push(value);
+          }
+        }
+      });
+    },
+    isdata(val){
+      if(val.name=='neutral'){
+        return 'una persona que no es ni toxica ni buena '
+      }
+      if(val.name=='positive'){
+        return 'una persona que es muy buena'
+      }
+      if(val.name=='negative'){
+        return 'una persona muy toxica'
+      }
+    }
   },
 };
 </script>

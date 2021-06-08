@@ -168,7 +168,9 @@ export const upload = {
           !msg.includes("cambió a") &&
           !msg.includes("eliminó a") &&
           !msg.includes('creó el grupo "') &&
-          !msg.includes("Creaste el grupo")
+          !msg.includes("Creaste el grupo") &&
+          !msg.includes("Ahora eres admin. del grupo") &&
+          !msg.includes("te añadió")
       );
     },
     clean() {
