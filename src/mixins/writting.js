@@ -47,6 +47,30 @@ export const writting = {
         .finally(() => {
           this.analizing = false;
         });
+      axios
+        .post("toxic/chat/text", { text: allChat2 })
+        .then((res) => {
+          const result = res.data.comprehend;
+          const data = [];
+          for (let key in result) {
+            const value = result[key];
+            const rest = { name: key, data: value };
+            data.push(rest);
+          }
+          console.log(result);
+          this.successData = true;
+          this.dataUser2 = data;
+          this.max2 = this.maxNumber(
+            result.positive,
+            result.negative,
+            result.neutral,
+            result.mixed
+          );
+          console.log(this.max2);
+        })
+        .finally(() => {
+          this.analizing = false;
+        });
     },
   },
 };

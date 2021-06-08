@@ -19,6 +19,8 @@ export default new Vuetify({
         navbar: "#373941",
         positive: "#2fc24c",
         negative: "#666666",
+        neutral: "#BB8F6A",
+        mixed: "#e0db4a",
       },
     },
   },

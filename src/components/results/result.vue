@@ -3,6 +3,14 @@
     <v-row>
       <v-col cols="12">
         <v-card>
+          <v-img
+            :src="
+              color == 'red' || color == 'yellow'
+                ? 'https://www.marketingdirecto.com/wp-content/uploads/2019/09/toxico.jpg'
+                : 'https://hidrogel.com.mx/wp-content/uploads/2016/08/toxicidad-300x284.jpg'
+            "
+            height="150px"
+          />
           <v-card-text class="text-center">
             {{ result(color) }}
           </v-card-text>
@@ -87,16 +95,16 @@ export default {
   methods: {
     result(res) {
       if (res == "red") {
-        return "Es toxico en un";
+        return "Este usuario " + this.user + "es una persona toxica";
       }
       if (res == "green") {
-        return "No es toxico";
+        return "Este usuario " + this.user + "no es una persona toxica";
       }
       if (res == "grey") {
-        return "Este usuario " + this.user + "es neutral";
+        return "Este usuario " + this.user + "no es una persona toxica";
       }
       if (res == "yellow") {
-        return "Es medio toxico";
+        return "Este usuario " + this.user + "es una persona toxica";
       }
     },
   },
