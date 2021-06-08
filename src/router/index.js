@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 // import store from "../store/store.js";
-import { authGuard } from "../auth/authGuard";
+// import { authGuard } from "../auth/authGuard";
 Vue.use(VueRouter);
 
 const routes = [
@@ -39,7 +39,6 @@ const routes = [
     path: "/account",
     name: "Account",
     component: () => import("../views/Account.vue"),
-    beforeEnter: authGuard,
   },
 ];
 

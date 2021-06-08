@@ -7,22 +7,22 @@ import router from "./router";
 import store from "./store/store.js";
 import axios from "axios";
 
-import { Auth0Plugin } from "./auth";
+// import { Auth0Plugin } from "./auth";
+//
+// import { domain, clientId ,audience } from "../auth_config.json";
 
-import { domain, clientId, audience } from "../auth_config.json";
-
-Vue.use(Auth0Plugin, {
-  domain,
-  clientId,
-  audience,
-  onRedirectCallback: (appState) => {
-    router.push(
-      appState && appState.targetUrl
-        ? appState.targetUrl
-        : window.location.pathname
-    );
-  },
-});
+// Vue.use(Auth0Plugin, {
+//   domain,
+//   clientId,
+//   audience,
+//   onRedirectCallback: (appState) => {
+//     router.push(
+//       appState && appState.targetUrl
+//         ? appState.targetUrl
+//         : window.location.pathname
+//     );
+//   },
+// });
 Vue.config.productionTip = false;
 
 Vue.filter("roundPercentage", function(value) {
@@ -32,8 +32,8 @@ Vue.filter("roundPercentage", function(value) {
   return value + "%";
 });
 
-axios.defaults.baseURL = "http://localhost:8080/";
-// axios.defaults.baseURL = "https://bakend-toxic-chat.herokuapp.com/";
+//axios.defaults.baseURL = "http://localhost:8080/";
+axios.defaults.baseURL = "https://bakend-toxic-chat.herokuapp.com/";
 
 new Vue({
   vuetify,

@@ -52,12 +52,15 @@ export const upload = {
             })
             .finally(() => {
               this.analizing = false;
+              this.saveResults()
             });
         }
       });
 
     },
-    saveResults() {},
+    saveResults() {
+      console.log(this.results)
+    },
     onlyUnique(value, index, self) {
       return self.indexOf(value) === index;
     },
