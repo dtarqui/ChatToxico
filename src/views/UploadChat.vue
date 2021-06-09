@@ -63,7 +63,7 @@
                 Usuarios en la conversacion
               </v-card-title>
               <v-card-text class="text-center">
-                <v-row>
+                <v-row align="center" justify="center">
                   <v-col
                     cols="12"
                     md="6"
@@ -71,14 +71,16 @@
                     v-for="(user, i) in users"
                     :key="i"
                   >
-                    <v-card> {{ user }}</v-card>
+                    <v-card>
+                      <v-card-text class="text-center"> {{ user }}</v-card-text>
+                    </v-card>
                   </v-col>
                 </v-row>
               </v-card-text>
               <v-divider></v-divider>
 
               <v-row>
-                <v-col cols="12" md="4" v-for="(resul,i) in results" :key="i">
+                <v-col cols="12" md="4" v-for="(resul, i) in results" :key="i">
                   {{ resul.user }}
                   <result
                     :headers="headers"
@@ -93,10 +95,10 @@
               <v-row>
                 <v-col cols="12" md="3">
                   <v-switch
-                      v-model="more"
-                      v-if="successData"
-                      color="primary"
-                      label="Mas informacion"
+                    v-model="more"
+                    v-if="successData"
+                    color="primary"
+                    label="Mas informacion"
                   ></v-switch>
                 </v-col>
               </v-row>
@@ -113,13 +115,13 @@
             <v-card-text>
               Please stand by
               <v-progress-linear
-                  indeterminate
-                  color="white"
-                  class="mb-0"
-                  v-if="loadresults!=false"
+                indeterminate
+                color="white"
+                class="mb-0"
+                v-if="loadresults != false"
               ></v-progress-linear>
             </v-card-text>
-            <v-row v-if="loadresults!=false">
+            <v-row v-if="loadresults != false">
               <v-col cols="12" v-for="(msg, n) in messages" :key="n">
                 <message
                   :id="n"
@@ -155,7 +157,7 @@ export default {
   },
   mixins: [rules, headers, upload, generic],
   data: () => ({
-    more:false,
+    more: false,
     successData: false,
     loading: false,
     file: null,
